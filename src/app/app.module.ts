@@ -8,7 +8,7 @@ import { MainComponent } from './main/main.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidenavComponent } from './layout/sidenav/sidenav.component';
 
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -28,7 +28,8 @@ import { HomeComponent } from './home/home.component';
 import { LivrosComponent } from './livros/livros.component';
 import { CalendarioComponent } from './calendario/calendario.component';
 import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -44,24 +45,26 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     ConfiguracoesComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     //imports material
-    MatSidenavModule,
-    MatToolbarModule,
-    MatMenuModule,
-    MatIconModule,
-    MatDividerModule,
-    MatListModule,
     MatButtonModule,
     MatCardModule,
-    FormsModule,
-    MatTableModule,
-    ReactiveFormsModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatOptionModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatSidenavModule,
+    MatTableModule,
+    MatToolbarModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
