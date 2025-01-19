@@ -1,0 +1,51 @@
+.mat-header-row th {
+  border-right: 1px solid #ccc;
+}
+
+.mat-header-row th:last-child {
+  border-right: none;
+}
+
+.mat-row td {
+  border-right: 1px dotted #ccc;
+}
+
+.mat-row td:last-child {
+  border-right: none;
+}
+.mat-table{
+  text-align: center;
+}
+
+.mat-header-row,
+.mat-header-cell,
+.mat-footer-cell,
+.mat-sort-header-arrow {
+  background-color: mat-color($Frontend-primary);
+  color: white;
+  text-align: center;
+}
+
+tr.mat-header-row {
+  height: 45px;
+}
+
+:host ::ng-deep .mat-sort-header-container {
+  display: flex;
+  justify-content: center;
+}
+td, th {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+.mat-sort-header-container {
+  justify-content: center !important;
+}
+.mat-column-select {
+  padding-left: 0 !important;
+  text-align: center;
+  width: 50px;
+  justify-content: center;
+  align-items: center;
+}

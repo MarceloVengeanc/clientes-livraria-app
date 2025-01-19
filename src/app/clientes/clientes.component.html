@@ -1,0 +1,55 @@
+<div class="container-lista">
+  <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%">
+    <div style="display: flex; flex-direction: column; width: 100%">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="container-lista">
+          <div class="form_campos">
+            <mat-form-field style="width: 50%">
+              <mat-label>Nome</mat-label>
+              <input matInput formControlName="nome" />
+              <mat-error *ngIf="form.get('nome')?.hasError('required') && form.get('nome')?.touched">
+                O nome é obrigatório.
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form_campos">
+            <mat-form-field style="width: 50%">
+              <mat-label>Sobrenome</mat-label>
+              <input matInput formControlName="sobrenome" />
+              <mat-error *ngIf="form.get('sobrenome')?.hasError('required') && form.get('sobrenome')?.touched">
+                O sobrenome é obrigatório.
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form_campos">
+            <mat-form-field style="width: 50%">
+              <mat-label>Endereço</mat-label>
+              <input matInput formControlName="endereco" />
+              <mat-error *ngIf="form.get('endereco')?.hasError('required') && form.get('endereco')?.touched">
+                O endereço é obrigatório.
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field appearance="outline" class="campos_filtro" style="width: 10%">
+              <mat-label>Sexo</mat-label>
+              <mat-select formControlName="sexo" id="sexo">
+                <mat-option *ngFor="let sexo of gender" [value]="sexo.value">
+                  {{ sexo.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div>
+          <button mat-raised-button color="primary" type="submit">Enviar</button>
+          <button mat-button (click)="onCancel()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

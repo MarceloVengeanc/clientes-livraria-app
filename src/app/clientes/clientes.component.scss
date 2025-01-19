@@ -1,0 +1,86 @@
+//@import "../../styles.scss";
+//@import "../table-style.scss";
+
+.container-lista {
+  padding: 12px;
+  // height: 90%;
+  // overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+button {
+  margin: 8px 8px;
+}
+
+#btn-novo {
+  margin: 3px 3px;
+}
+
+.btn-novo {
+  width: 175px;
+}
+
+.spinner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.input_buscar {
+  width: 100%;
+}
+
+.campos_filtro {
+  margin: 5px 15px 0 5px;
+  width: fit-content;
+}
+
+.form_campos {
+  margin: 5px 15px 0 5px;
+  width: 95%;
+}
+
+.campos {
+  margin: 5px 15px 0 15px;
+}
+
+.filtros {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+
+.btn-busca {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  margin-right: 15px;
+  justify-content: flex-end;
+  align-items: baseline;
+}
+
+.tp-size {
+  text-size-adjust: 18pt;
+}
+
+.cdk-overlay-container,
+.cdk-global-overlay-wrapper {
+  white-space: pre-line;
+  size: 20pt;
+}
+
+.mat-radio-button {
+  margin-right: 5px;
+}
+
+.mat-cell {
+  overflow-wrap: break-word;
+  margin-left: 2px;
+  margin-right: 2px;
+}
