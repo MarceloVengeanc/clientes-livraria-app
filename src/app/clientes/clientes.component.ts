@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Clientes } from './clientes';
+import { AuthService } from '../services/auth-service.service';
 
 
 @Component({
@@ -41,4 +42,7 @@ export class ClientesComponent implements OnInit {
   onCancel() {
     this.form.reset();
   }
+
+
+
 }

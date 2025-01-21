@@ -30,6 +30,7 @@ import { CalendarioComponent } from './calendario/calendario.component';
 import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
+import { LoginComponentComponent } from './login-component/login-component.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { MatOptionModule } from '@angular/material/core';
     HomeComponent,
     LivrosComponent,
     CalendarioComponent,
-    ConfiguracoesComponent
+    ConfiguracoesComponent,
+    LoginComponentComponent
   ],
   imports: [
     AppRoutingModule,
