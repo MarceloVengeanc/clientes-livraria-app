@@ -1,60 +1,116 @@
-<div class="container-lista">
-  <h1>Cadastro Cliente</h1>
-  <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%">
-    <div style="display: flex; flex-direction: column; width: 100%">
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="container-lista">
-          <div class="form_campos">
-            <mat-form-field style="width: 50%">
-              <mat-label>Nome</mat-label>
-              <input matInput formControlName="nome" maxlength="50" />
-              <mat-error *ngIf="form.get('nome')?.hasError('required') && form.get('nome')?.touched">
-                O nome é obrigatório.
-              </mat-error>
-              <mat-hint align="end">{{ form.get('nome')?.value?.length || 0 }}/50</mat-hint>
-            </mat-form-field>
-
-          </div>
-
-          <div class="form_campos">
-            <mat-form-field style="width: 50%">
-              <mat-label>Sobrenome</mat-label>
-              <input matInput formControlName="sobrenome" maxlength="50" />
-              <mat-error *ngIf="form.get('sobrenome')?.hasError('required') && form.get('sobrenome')?.touched">
-                O sobrenome é obrigatório.
-              </mat-error>
-              <mat-hint align="end">{{ form.get('sobrenome')?.value?.length || 0 }}/50</mat-hint>
-            </mat-form-field>
-          </div>
-
-          <div class="form_campos">
-            <mat-form-field style="width: 50%">
-              <mat-label>Endereço</mat-label>
-              <input matInput formControlName="endereco" maxlength="150" />
-              <mat-error *ngIf="form.get('endereco')?.hasError('required') && form.get('endereco')?.touched">
-                O endereço é obrigatório.
-              </mat-error>
-              <mat-hint align="end">{{ form.get('endereco')?.value?.length || 0 }}/150</mat-hint>
-            </mat-form-field>
-          </div>
-
-          <div>
-            <mat-form-field appearance="outline" class="campos_filtro" style="width: 20%">
-              <mat-label>Sexo</mat-label>
-              <mat-select formControlName="sexo">
-                <mat-option *ngFor="let option of gender" [value]="option.value">
-                  {{ option.viewValue }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div>
-          <button mat-raised-button color="primary" type="submit">Enviar</button>
-          <button mat-button (click)="onCancel()">Cancelar</button>
-        </div>
-      </form>
-    </div>
+<mat-card>
+  <mat-card-title>Lista de Clientes</mat-card-title>
+  <div>
+    <button mat-raised-button color="primary" type="button" routerLink="/cadastroclientes">
+      Novo
+      <mat-icon>add</mat-icon>
+    </button>
   </div>
-</div>
+  <mat-card-content>
+
+    <mat-form-field appearance="outline" style="width: 100%;">
+      <mat-label>Filtrar por nome</mat-label>
+      <input matInput (keyup)="aplicarFiltro($event)" placeholder="Digite o nome">
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let pessoa">{{ pessoa.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+        <td mat-cell *matCellDef="let pessoa">{{ pessoa.firstName + " " + pessoa.lastName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="idade">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sexo</th>
+        <td mat-cell *matCellDef="let pessoa">{{ pessoa.gender }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Endereço</th>
+        <td mat-cell *matCellDef="let pessoa">{{ pessoa.address }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let pessoa">
+          <button mat-icon-button color="primary">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="excluirPessoa(pessoa.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+  </mat-card-content>
+</mat-card>
+
+<!--
+<mat-card>
+  <mat-card-title>Lista de Clientes</mat-card-title>
+  <mat-card-content>
+
+    <mat-form-field appearance="outline" class="filtro">
+      <mat-label>Filtrar por nome</mat-label>
+      <input matInput (keyup)="aplicarFiltro($event)" placeholder="Digite o nome">
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let cliente">{{ cliente.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+        <td mat-cell *matCellDef="let cliente">{{ cliente.firstName }} {{ cliente.lastName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="endereco">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Endereço</th>
+        <td mat-cell *matCellDef="let cliente">{{ cliente.adress }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="genero">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Gênero</th>
+        <td mat-cell *matCellDef="let cliente">{{ cliente.gender }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let cliente">
+          <mat-chip [color]="cliente.enabled ? 'primary' : 'warn'">
+            {{ cliente.enabled ? 'Ativo' : 'Inativo' }}
+          </mat-chip>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let cliente">
+          <button mat-icon-button color="warn" (click)="excluirPessoa(cliente.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+  </mat-card-content>
+</mat-card> -->

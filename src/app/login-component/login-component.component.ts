@@ -21,15 +21,20 @@ export class LoginComponentComponent implements OnInit {
   }
 
   login(): void {
+    console.log('Chamando authenticate()'); // 🔍 Confirmação antes da chamada à API
+
     this.authService.authenticate(this.username, this.password).subscribe(
-      () => {
-        console.log(this.authService.isLoggedIn(), 'teste')
+      (response) => {
+        console.log('Login bem-sucedido:', response); // 🔍 Verifica se caiu aqui
+        console.log('Token armazenado?', this.authService.isLoggedIn());
         this.router.navigate(['/home']);
       },
       (error) => {
-        this.errorMessage = 'Usuário ou senha inválidos';
         console.error('Erro de autenticação:', error);
+        this.errorMessage = 'Usuário ou senha inválidos';
       }
     );
   }
+
+
 }

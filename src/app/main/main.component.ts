@@ -10,6 +10,7 @@ import { Component } from '@angular/core';
 export class MainComponent {
 
   isSidebarVisible = true;
+  isLoggedIn = false;
   constructor(
     private sidebarService: SidebarService,
     private authService: AuthService) { }
@@ -20,9 +21,6 @@ export class MainComponent {
     });
   }
 
-  isLoggedIn(): boolean {
-    console.log('logado: ', this.authService.isLoggedIn)
-    return this.authService.isLoggedIn();
-  }
+
 
 }

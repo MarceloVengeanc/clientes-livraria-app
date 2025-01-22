@@ -15,7 +15,7 @@ export class AuthService {
     const body = { username, password };
     return this.http.post<any>(this.authUrl, body).pipe(
       tap((response) => {
-        if (response.token) {
+        if (response?.token) {
           localStorage.setItem(this.tokenKey, response.token);
         }
       })
