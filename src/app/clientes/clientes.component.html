@@ -3,14 +3,14 @@
   <div>
     <button mat-raised-button color="primary" type="button" routerLink="/cadastroclientes">
       Novo
-      <mat-icon>add</mat-icon>
+    <mat-icon>add</mat-icon>
     </button>
   </div>
   <mat-card-content>
 
     <mat-form-field appearance="outline" style="width: 100%;">
-      <mat-label>Filtrar por nome</mat-label>
-      <input matInput (keyup)="aplicarFiltro($event)" placeholder="Digite o nome">
+      <mat-label>Filtrar...</mat-label>
+      <input matInput (keyup)="aplicarFiltro($event)" >
     </mat-form-field>
 
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
@@ -57,6 +57,7 @@
 </mat-card>
 
 <!--
+placeholder="Digite o nome"
 <mat-card>
   <mat-card-title>Lista de Clientes</mat-card-title>
   <mat-card-content>

@@ -15,7 +15,7 @@ export class ClientesService {
   getClientes(page: number = 0, size: number = 12, direction: string = 'asc'): Observable<any> {
     let params = new HttpParams()
       .set('page', page.toString())
-      .set('size', size.toString())
+      .set('limit', size.toString())
       .set('direction', direction);
 
     return this.http.get<any>(this.apiUrl, { params });

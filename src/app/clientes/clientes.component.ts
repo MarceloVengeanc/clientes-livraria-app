@@ -3,6 +3,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Clientes } from './cadastro-clientes/clientes';
+import { ClientesService } from '../services/clientes.service';
 
 @Component({
   selector: 'app-clientes',
@@ -11,11 +12,9 @@ import { Clientes } from './cadastro-clientes/clientes';
 })
 export class ClientesComponent {
   displayedColumns: string[] = ['id', 'nome', 'idade', 'email', 'acoes'];
-  dataSource = new MatTableDataSource<Clientes>([
-    { id: 1, firstName: 'Carlos', lastName: 'silva', address: 'rua um',gender: 'Masculino', enabled: true },
-    { id: 2, firstName: 'Maria', lastName: 'souza', address: 'rua dois',gender: 'Feminino', enabled: true },
-    { id: 3, firstName: 'João', lastName: 'josé', address: 'rua tres',gender: 'Masculino', enabled: true },
-  ]);
+  dataSource = new MatTableDataSource<Clientes>([]);
+
+  constructor(private clientesService: ClientesService){}
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -23,14 +22,33 @@ export class ClientesComponent {
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    this.getClientes();
   }
 
-  aplicarFiltro(event: Event) {
-    const valor = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = valor.trim().toLowerCase();
+
+  getClientes(page: number = 0, size: number = 12, direction: string = 'asc'): void {
+    this.clientesService.getClientes(page, size, direction).subscribe({
+      next: (response) => {
+        console.log(response)
+        const clientes = response._embedded.content;
+        this.dataSource.data = clientes;
+
+        this.paginator.length = response.page.totalElements;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar os clientes:', err);
+      }
+    });
   }
 
-  excluirPessoa(id: number) {
-    this.dataSource.data = this.dataSource.data.filter(pessoa => pessoa.id !== id);
-  }
+    aplicarFiltro(event: Event) {
+      const valor = (event.target as HTMLInputElement).value;
+      this.dataSource.filter = valor.trim().toLowerCase();
+    }
+
+    excluirPessoa(id: number) {
+      this.dataSource.data = this.dataSource.data.filter(pessoa => pessoa.id !== id);
+    }
+
 }
