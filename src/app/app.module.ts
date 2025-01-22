@@ -31,6 +31,8 @@ import { ConfiguracoesComponent } from './configuracoes/configuracoes.component'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { LoginComponentComponent } from './login-component/login-component.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,7 @@ import { LoginComponentComponent } from './login-component/login-component.compo
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     //imports material
     MatButtonModule,
     MatCardModule,
@@ -66,6 +69,7 @@ import { LoginComponentComponent } from './login-component/login-component.compo
     MatSidenavModule,
     MatTableModule,
     MatToolbarModule,
+    RouterModule
 
   ],
   providers: [],

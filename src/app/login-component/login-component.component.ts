@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth-service.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login-component',
@@ -7,26 +8,28 @@ import { AuthService } from '../services/auth-service.service';
   styleUrls: ['./login-component.component.scss']
 })
 export class LoginComponentComponent implements OnInit {
-  username: string = 'marcelo';
-  password: string = 'coffe123';
-  token: string | null = null;
+  username: string = '';
+  password: string = '';
+  errorMessage: string | null = null;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/home']);
+    }
   }
 
   login(): void {
     this.authService.authenticate(this.username, this.password).subscribe(
-      (response) => {
-        this.token = response.token;
-        console.log('token', this.token);
+      () => {
+        console.log(this.authService.isLoggedIn(), 'teste')
+        this.router.navigate(['/home']);
       },
-        (error) => {
-          console.log('erro token', error);
-        }
-      );
+      (error) => {
+        this.errorMessage = 'Usuário ou senha inválidos';
+        console.error('Erro de autenticação:', error);
+      }
+    );
   }
-
 }

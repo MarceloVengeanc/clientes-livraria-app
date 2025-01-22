@@ -1,3 +1,4 @@
+import { AuthService } from '../services/auth.service';
 import { SidebarService } from './../services/sidebar.service';
 import { Component } from '@angular/core';
 
@@ -9,12 +10,19 @@ import { Component } from '@angular/core';
 export class MainComponent {
 
   isSidebarVisible = true;
-  constructor(private sidebarService: SidebarService) { }
+  constructor(
+    private sidebarService: SidebarService,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.sidebarService.sidebarVisibility$.subscribe((isVisible) => {
       this.isSidebarVisible = isVisible;
     });
+  }
+
+  isLoggedIn(): boolean {
+    console.log('logado: ', this.authService.isLoggedIn)
+    return this.authService.isLoggedIn();
   }
 
 }
