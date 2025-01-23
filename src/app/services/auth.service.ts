@@ -13,10 +13,13 @@ export class AuthService {
 
   authenticate(username: string, password: string): Observable<any> {
     const body = { username, password };
-    return this.http.post<any>(this.authUrl, body).pipe(
+
+    return this.http.post<{ accessToken: string }>(this.authUrl, body).pipe(
       tap((response) => {
-        if (response?.token) {
-          localStorage.setItem(this.tokenKey, response.token);
+        if (response?.accessToken) {
+          localStorage.setItem(this.tokenKey, response.accessToken);
+        } else {
+          console.warn('Nenhum token retornado pela API.');
         }
       })
     );

@@ -13,11 +13,16 @@ export class ClientesService {
   constructor(private http: HttpClient) { }
 
   getClientes(page: number = 0, size: number = 12, direction: string = 'asc'): Observable<any> {
-    let params = new HttpParams()
+    const params = new HttpParams()
       .set('page', page.toString())
-      .set('limit', size.toString())
+      .set('size', size.toString())
       .set('direction', direction);
 
-    return this.http.get<any>(this.apiUrl, { params });
+    return this.http.get<any>('http://localhost:80/api/person/v1', { params });
   }
+
+  getAllClientes(): Observable<any> {
+    return this.http.get<Clientes>(this.apiUrl);
+  }
+
 }

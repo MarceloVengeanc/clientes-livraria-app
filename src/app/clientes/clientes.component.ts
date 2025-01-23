@@ -13,6 +13,7 @@ import { ClientesService } from '../services/clientes.service';
 export class ClientesComponent {
   displayedColumns: string[] = ['id', 'nome', 'idade', 'email', 'acoes'];
   dataSource = new MatTableDataSource<Clientes>([]);
+  errorMessage: string | null = null;
 
   constructor(private clientesService: ClientesService){}
 
@@ -26,21 +27,31 @@ export class ClientesComponent {
     this.getClientes();
   }
 
-
-  getClientes(page: number = 0, size: number = 12, direction: string = 'asc'): void {
-    this.clientesService.getClientes(page, size, direction).subscribe({
-      next: (response) => {
-        console.log(response)
-        const clientes = response._embedded.content;
-        this.dataSource.data = clientes;
-
-        this.paginator.length = response.page.totalElements;
+  getClientes(): void {
+    this.clientesService.getAllClientes().subscribe({
+      next: (data) => {
+        this.dataSource = data;
       },
-      error: (err) => {
-        console.error('Erro ao carregar os clientes:', err);
+      error: (error) => {
+        this.errorMessage = error.message;
       }
     });
   }
+
+  // getClientes(page: number = 0, size: number = 12, direction: string = 'asc'): void {
+  //   this.clientesService.getClientes(page, size, direction).subscribe({
+  //     next: (response) => {
+  //       console.log(response)
+  //       const clientes = response._embedded.content;
+  //       this.dataSource.data = clientes;
+
+  //       this.paginator.length = response.page.totalElements;
+  //     },
+  //     error: (err) => {
+  //       console.error('Erro ao carregar os clientes:', err);
+  //     }
+  //   });
+  // }
 
     aplicarFiltro(event: Event) {
       const valor = (event.target as HTMLInputElement).value;
