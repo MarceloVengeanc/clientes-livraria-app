@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Clientes } from '../clientes/cadastro-clientes/clientes';
 
 @Injectable({
@@ -18,11 +18,33 @@ export class ClientesService {
       .set('size', size.toString())
       .set('direction', direction);
 
-    return this.http.get<any>('http://localhost:80/api/person/v1', { params });
+    const token = localStorage.getItem('authToken');
+
+    if (!token) {
+      console.error('Token não encontrado');
+      return throwError(() => new Error('Token não encontrado'));
+    }
+
+    console.log(token, 'token aqui');
+    const headers = {
+      'Authorization': 'Bearer ' + token
+    };
+
+    return this.http.get<any>(this.apiUrl, { params, headers });
   }
 
-  getAllClientes(): Observable<any> {
-    return this.http.get<Clientes>(this.apiUrl);
+  getAllClientes(): Observable<Clientes> {
+    const token = localStorage.getItem('authToken');
+
+    if (!token) {
+      console.error('Token não encontrado');
+      return throwError(() => new Error('Token não encontrado'));
+    }
+    const headers = {
+      'Authorization': 'Bearer ' + token
+    };
+    return this.http.get<Clientes>(this.apiUrl, { headers });
   }
+
 
 }

@@ -1,65 +1,68 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Clientes } from './cadastro-clientes/clientes';
 import { ClientesService } from '../services/clientes.service';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-clientes',
   templateUrl: './clientes.component.html',
   styleUrls: ['./clientes.component.scss']
 })
-export class ClientesComponent {
+export class ClientesComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'nome', 'idade', 'email', 'acoes'];
-  dataSource = new MatTableDataSource<Clientes>([]);
-  errorMessage: string | null = null;
-
-  constructor(private clientesService: ClientesService){}
+  dataSource = new MatTableDataSource<Clientes>();
+  totalElements: number = 0;
+  pageSize: number = 5;
+  pageIndex: number = 0;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  constructor(private clientesService: ClientesService) { }
 
-    this.getClientes();
+  ngOnInit(): void {
+    this.getClientes(this.pageIndex, this.pageSize);
   }
 
-  getClientes(): void {
-    this.clientesService.getAllClientes().subscribe({
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  getClientes(page: number, size: number): void {
+    this.clientesService.getClientes(page, size).subscribe({
       next: (data) => {
-        this.dataSource = data;
+        this.dataSource.data = data?._embedded?.personVOList ?? [];
+        if (data?.page) {
+          this.totalElements = data.page.totalElements ?? 0;
+          this.pageSize = data.page.size ?? 5;
+          this.pageIndex = data.page.number ?? 0;
+
+          if (this.paginator) {
+            this.paginator.length = this.totalElements;
+          }
+        }
       },
       error: (error) => {
-        this.errorMessage = error.message;
+        console.error('Erro ao buscar clientes:', error);
       }
     });
   }
 
-  // getClientes(page: number = 0, size: number = 12, direction: string = 'asc'): void {
-  //   this.clientesService.getClientes(page, size, direction).subscribe({
-  //     next: (response) => {
-  //       console.log(response)
-  //       const clientes = response._embedded.content;
-  //       this.dataSource.data = clientes;
+  onPageChanged(event: any): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.getClientes(this.pageIndex, this.pageSize);
+  }
 
-  //       this.paginator.length = response.page.totalElements;
-  //     },
-  //     error: (err) => {
-  //       console.error('Erro ao carregar os clientes:', err);
-  //     }
-  //   });
-  // }
+  aplicarFiltro(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
-    aplicarFiltro(event: Event) {
-      const valor = (event.target as HTMLInputElement).value;
-      this.dataSource.filter = valor.trim().toLowerCase();
-    }
-
-    excluirPessoa(id: number) {
-      this.dataSource.data = this.dataSource.data.filter(pessoa => pessoa.id !== id);
-    }
-
+  excluirPessoa(id: number) {
+    this.dataSource.data = this.dataSource.data.filter(pessoa => pessoa.id !== id);
+  }
 }

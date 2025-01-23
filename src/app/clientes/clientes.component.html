@@ -3,26 +3,26 @@
   <div>
     <button mat-raised-button color="primary" type="button" routerLink="/cadastroclientes">
       Novo
-    <mat-icon>add</mat-icon>
+      <mat-icon>add</mat-icon>
     </button>
   </div>
   <mat-card-content>
 
     <mat-form-field appearance="outline" style="width: 100%;">
       <mat-label>Filtrar...</mat-label>
-      <input matInput (keyup)="aplicarFiltro($event)" >
+      <input matInput (keyup)="aplicarFiltro($event)">
     </mat-form-field>
 
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-        <td mat-cell *matCellDef="let pessoa">{{ pessoa.id }}</td>
+        <td mat-cell *matCellDef="let pessoa">{{ pessoa.id}}</td>
       </ng-container>
 
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
-        <td mat-cell *matCellDef="let pessoa">{{ pessoa.firstName + " " + pessoa.lastName}}</td>
+        <td mat-cell *matCellDef="let pessoa">{{ pessoa.firstName + " " + pessoa.lastName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="idade">
@@ -51,67 +51,9 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <mat-paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20, 50]" [length]="totalElements"
+      showFirstLastButtons (page)="onPageChanged($event)">
+    </mat-paginator>
 
   </mat-card-content>
 </mat-card>
-
-<!--
-placeholder="Digite o nome"
-<mat-card>
-  <mat-card-title>Lista de Clientes</mat-card-title>
-  <mat-card-content>
-
-    <mat-form-field appearance="outline" class="filtro">
-      <mat-label>Filtrar por nome</mat-label>
-      <input matInput (keyup)="aplicarFiltro($event)" placeholder="Digite o nome">
-    </mat-form-field>
-
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-        <td mat-cell *matCellDef="let cliente">{{ cliente.id }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="nome">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
-        <td mat-cell *matCellDef="let cliente">{{ cliente.firstName }} {{ cliente.lastName }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="endereco">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Endereço</th>
-        <td mat-cell *matCellDef="let cliente">{{ cliente.adress }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="genero">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Gênero</th>
-        <td mat-cell *matCellDef="let cliente">{{ cliente.gender }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>Status</th>
-        <td mat-cell *matCellDef="let cliente">
-          <mat-chip [color]="cliente.enabled ? 'primary' : 'warn'">
-            {{ cliente.enabled ? 'Ativo' : 'Inativo' }}
-          </mat-chip>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="acoes">
-        <th mat-header-cell *matHeaderCellDef>Ações</th>
-        <td mat-cell *matCellDef="let cliente">
-          <button mat-icon-button color="warn" (click)="excluirPessoa(cliente.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-
-  </mat-card-content>
-</mat-card> -->
