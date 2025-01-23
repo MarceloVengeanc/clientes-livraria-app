@@ -37,6 +37,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FilterPipe } from './utils/filter.pipe';
 import { ClientesComponent } from './clientes/clientes.component';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import { ClientesComponent } from './clientes/clientes.component';
     MatToolbarModule,
     RouterModule,
     MatPaginatorModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSortModule
 
   ],
   providers: [],
