@@ -5,7 +5,7 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="container-lista">
           <div class="form_campos">
-            <mat-form-field style="width: 50%">
+            <mat-form-field appearance="outline" style="width: 50%">
               <mat-label>Nome</mat-label>
               <input matInput formControlName="nome" maxlength="50" />
               <mat-error *ngIf="form.get('nome')?.hasError('required') && form.get('nome')?.touched">
@@ -17,7 +17,7 @@
           </div>
 
           <div class="form_campos">
-            <mat-form-field style="width: 50%">
+            <mat-form-field appearance="outline" style="width: 50%">
               <mat-label>Sobrenome</mat-label>
               <input matInput formControlName="sobrenome" maxlength="50" />
               <mat-error *ngIf="form.get('sobrenome')?.hasError('required') && form.get('sobrenome')?.touched">
@@ -28,7 +28,7 @@
           </div>
 
           <div class="form_campos">
-            <mat-form-field style="width: 50%">
+            <mat-form-field appearance="outline" style="width: 50%">
               <mat-label>Endereço</mat-label>
               <input matInput formControlName="endereco" maxlength="150" />
               <mat-error *ngIf="form.get('endereco')?.hasError('required') && form.get('endereco')?.touched">

@@ -36,9 +36,9 @@ export class ClientesComponent implements OnInit, AfterViewInit {
       next: (data) => {
         this.dataSource.data = data?._embedded?.personVOList ?? [];
         if (data?.page) {
-          this.totalElements = data.page.totalElements ?? 0;
-          this.pageSize = data.page.size ?? 5;
-          this.pageIndex = data.page.number ?? 0;
+          this.totalElements = data.page.totalElements;
+          this.pageSize = data.page.size;
+          this.pageIndex = data.page.number;
 
           if (this.paginator) {
             this.paginator.length = this.totalElements;
