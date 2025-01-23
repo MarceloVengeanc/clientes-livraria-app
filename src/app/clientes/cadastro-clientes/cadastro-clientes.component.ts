@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-clientes',
+  selector: 'app-cadastro-clientes',
   templateUrl: './cadastro-clientes.component.html',
   styleUrls: ['./cadastro-clientes.component.scss']
 })

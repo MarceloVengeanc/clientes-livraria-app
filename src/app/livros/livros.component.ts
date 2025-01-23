@@ -1,33 +1,42 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { Livros } from './livros';
 
 @Component({
   selector: 'app-livros',
   templateUrl: './livros.component.html',
   styleUrls: ['./livros.component.scss']
 })
-export class LivrosComponent {
+export class LivrosComponent implements OnInit, AfterViewInit {
 
-  form: FormGroup;
-  amount: any;
-  taxableValue!: string;
+  displayedColumns: string[] = ['id', 'titulo', 'autor', 'preco', 'dataLancamento', 'acoes'];
+  dataSource = new MatTableDataSource<Livros>();
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      nome: ['', Validators.required],
-      sobrenome: ['', Validators.required],
-      endereco: ['', Validators.required],
-      sexo: ['', Validators.required]
-    });
+  totalElements: number = 0;
+  pageSize: number = 5;
+  pageIndex: number = 0;
+
+
+  ngAfterViewInit(): void {
+    throw new Error('Method not implemented.');
   }
 
-  onSubmit() {
-    if (this.form.valid) {
-      console.log('Form preenchido:', this.form.value);
-    }
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
   }
 
-  onCancel() {
-    this.form.reset();
+  excluirLivro(id: number) {
+    this.dataSource.data = this.dataSource.data.filter(pessoa => pessoa.id !== id);
+  }
+
+  onPageChanged(event: any): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+
+  }
+
+  aplicarFiltro(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

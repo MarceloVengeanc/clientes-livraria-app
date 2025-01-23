@@ -27,34 +27,37 @@ import { FormsModule } from '@angular/forms';
 import { RouterLinkActiveExactDirective } from './main/appRouterLinkActiveExact.directive';
 import { CadastroClientesComponent } from './clientes/cadastro-clientes/cadastro-clientes.component';
 import { HomeComponent } from './home/home.component';
-import { LivrosComponent } from './livros/livros.component';
 import { CalendarioComponent } from './calendario/calendario.component';
 import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
-import { LoginComponentComponent } from './login-component/login-component.component';
+import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FilterPipe } from './utils/filter.pipe';
 import { ClientesComponent } from './clientes/clientes.component';
 import { MatSortModule } from '@angular/material/sort';
+import { LivrosComponent } from './livros/livros.component';
+import { CadastrosLivrosComponent } from './livros/cadastros-livros/cadastros-livros.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent,
-    HeaderComponent,
-    SidenavComponent,
-    RouterLinkActiveExactDirective,
     CadastroClientesComponent,
+    CadastrosLivrosComponent,
+    CalendarioComponent,
+    ClientesComponent,
+    ConfiguracoesComponent,
+    FilterPipe,
+    HeaderComponent,
     HomeComponent,
     LivrosComponent,
-    CalendarioComponent,
-    ConfiguracoesComponent,
-    LoginComponentComponent,
-    ClientesComponent,
-    FilterPipe
+    LoginComponent,
+    MainComponent,
+    RouterLinkActiveExactDirective,
+    SidenavComponent
+
   ],
   imports: [
     AppRoutingModule,
