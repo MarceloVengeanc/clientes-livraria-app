@@ -1,10 +1,11 @@
 <mat-card>
   <div class="container-lista">
-    <h1>Cadastro Cliente</h1>
+    <h1>{{ cliente ? 'Editar Cliente' : 'Cadastrar Cliente' }}</h1>
     <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%">
       <div style="display: flex; flex-direction: column; width: 100%">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="container-lista">
+
             <div class="form_campos">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Nome</mat-label>
@@ -55,7 +56,8 @@
           </div>
 
           <div>
-            <button mat-raised-button color="primary" type="submit">Enviar</button>
+            <button mat-raised-button color="primary" type="submit">{{ cliente ? 'Salvar Alterações' : 'Cadastrar'
+              }}</button>
             <button mat-button (click)="onCancel()" routerLink="/clientes">Cancelar</button>
           </div>
         </form>

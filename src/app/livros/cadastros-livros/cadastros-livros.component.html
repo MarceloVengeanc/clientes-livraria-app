@@ -5,6 +5,7 @@
       <div style="display: flex; flex-direction: column; width: 100%">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="container-lista">
+
             <div class="form_campos">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Título</mat-label>
@@ -14,6 +15,7 @@
                 </mat-error>
                 <mat-hint align="end">{{ form.get('titulo')?.value?.length || 0 }}/150</mat-hint>
               </mat-form-field>
+
             </div>
 
             <div class="form_campos">

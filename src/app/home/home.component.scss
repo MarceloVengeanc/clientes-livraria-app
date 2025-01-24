@@ -1,0 +1,119 @@
+@import '../../styles.scss';
+
+.mat-card-lenght {
+  max-width: 350px;
+  height: 100px;
+}
+
+mat-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.container-texto {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-card-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.mat-card-subtitle {
+  font-size: 14px;
+  color: #777;
+}
+
+.container-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.icone-group {
+  font-size: 32px;
+  color: #401a7e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::before {
+    content: "group";
+    font-family: 'Material Icons';
+    font-weight: normal;
+  }
+}
+
+.icone-book {
+  font-size: 32px;
+  color: #401a7e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::before {
+    content: "menu_book";
+    font-family: 'Material Icons';
+    font-weight: normal;
+  }
+}
+
+.icone-money {
+  font-size: 32px;
+  color: #401a7e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::before {
+    content: "attach_money";
+    font-family: 'Material Icons';
+    font-weight: normal;
+  }
+}
+
+.icone-checkbook {
+  font-size: 32px;
+  color: #401a7e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::before {
+    content: "book";
+    font-family: 'Material Icons';
+    font-weight: normal;
+  }
+}
+
+.icone-thumbdown {
+  font-size: 32px;
+  color: #401a7e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::before {
+    content: "thumb_down";
+    font-family: 'Material Icons';
+    font-weight: normal;
+  }
+}
+
+.icone-warning {
+  font-size: 32px;
+  color: #401a7e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::before {
+    content: "warning";
+    font-family: 'Material Icons';
+    font-weight: normal;
+  }
+}
