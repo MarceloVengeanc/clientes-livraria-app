@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-title style="margin-left: 16px;">Lista de Clientes</mat-card-title>
+  <mat-card-title style="margin-left: 16px;">Clientes</mat-card-title>
   <div>
     <button mat-raised-button color="primary" type="button" routerLink="/cadastroclientes">
       Novo
@@ -25,12 +25,12 @@
         <td mat-cell *matCellDef="let pessoa">{{ pessoa.firstName + " " + pessoa.lastName }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="idade">
+      <ng-container matColumnDef="sexo">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Sexo</th>
         <td mat-cell *matCellDef="let pessoa">{{ pessoa.gender }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="email">
+      <ng-container matColumnDef="endereco">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Endereço</th>
         <td mat-cell *matCellDef="let pessoa">{{ pessoa.address }}</td>
       </ng-container>

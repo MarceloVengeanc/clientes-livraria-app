@@ -1,59 +1,61 @@
-<div class="container-lista">
-  <h1>Cadastro Livro</h1>
-  <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%">
-    <div style="display: flex; flex-direction: column; width: 100%">
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="container-lista">
-          <div class="form_campos">
-            <mat-form-field style="width: 50%">
-              <mat-label>Título</mat-label>
-              <input matInput formControlName="nome" maxlength="50" />
-              <mat-error *ngIf="form.get('nome')?.hasError('required') && form.get('nome')?.touched">
-                O tpítulo é obrigatório.
-              </mat-error>
-              <mat-hint align="end">{{ form.get('nome')?.value?.length || 0 }}/50</mat-hint>
-            </mat-form-field>
+<mat-card>
+  <div class="container-lista">
+    <h1>Cadastro Livro</h1>
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%">
+      <div style="display: flex; flex-direction: column; width: 100%">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="container-lista">
+            <div class="form_campos">
+              <mat-form-field appearance="outline" style="width: 50%">
+                <mat-label>Título</mat-label>
+                <input matInput formControlName="nome" maxlength="50" />
+                <mat-error *ngIf="form.get('nome')?.hasError('required') && form.get('nome')?.touched">
+                  O tpítulo é obrigatório.
+                </mat-error>
+                <mat-hint align="end">{{ form.get('nome')?.value?.length || 0 }}/50</mat-hint>
+              </mat-form-field>
 
-          </div>
+            </div>
 
-          <div class="form_campos">
-            <mat-form-field style="width: 50%">
-              <mat-label>Autor</mat-label>
-              <input matInput formControlName="sobrenome" maxlength="50" />
-              <mat-error *ngIf="form.get('sobrenome')?.hasError('required') && form.get('sobrenome')?.touched">
-                O autor é obrigatório.
-              </mat-error>
-              <mat-hint align="end">{{ form.get('sobrenome')?.value?.length || 0 }}/50</mat-hint>
-            </mat-form-field>
-          </div>
+            <div class="form_campos">
+              <mat-form-field appearance="outline" style="width: 50%">
+                <mat-label>Autor</mat-label>
+                <input matInput formControlName="sobrenome" maxlength="50" />
+                <mat-error *ngIf="form.get('sobrenome')?.hasError('required') && form.get('sobrenome')?.touched">
+                  O autor é obrigatório.
+                </mat-error>
+                <mat-hint align="end">{{ form.get('sobrenome')?.value?.length || 0 }}/50</mat-hint>
+              </mat-form-field>
+            </div>
 
-          <div class="form_campos">
-            <mat-form-field style="width: 50%">
-              <mat-label>Data Lançamento</mat-label>
-              <input matInput formControlName="endereco" maxlength="150" />
-              <mat-error *ngIf="form.get('endereco')?.hasError('required') && form.get('endereco')?.touched">
-                A data de lançamento é obrigatória.
-              </mat-error>
-              <mat-hint align="end">{{ form.get('endereco')?.value?.length || 0 }}/150</mat-hint>
-            </mat-form-field>
-          </div>
+            <div class="form_campos">
+              <mat-form-field appearance="outline" style="width: 50%">
+                <mat-label>Data Lançamento</mat-label>
+                <input matInput formControlName="endereco" maxlength="150" />
+                <mat-error *ngIf="form.get('endereco')?.hasError('required') && form.get('endereco')?.touched">
+                  A data de lançamento é obrigatória.
+                </mat-error>
+                <mat-hint align="end">{{ form.get('endereco')?.value?.length || 0 }}/150</mat-hint>
+              </mat-form-field>
+            </div>
 
-          <div class="form_campos">
-            <mat-form-field style="width: 50%">
-              <mat-label>Preço</mat-label>
-              <input matInput tyformControlName="preco" maxlength="10" />
-              <mat-error *ngIf="form.get('preco')?.hasError('required') && form.get('endereco')?.touched">
-                O preço é obrigatório.
-              </mat-error>
-              <mat-hint align="end">{{ form.get('preco')?.value?.length || 0 }}/10</mat-hint>
-            </mat-form-field>
+            <div class="form_campos">
+              <mat-form-field appearance="outline" style="width: 50%">
+                <mat-label>Preço</mat-label>
+                <input matInput tyformControlName="preco" maxlength="10" />
+                <mat-error *ngIf="form.get('preco')?.hasError('required') && form.get('endereco')?.touched">
+                  O preço é obrigatório.
+                </mat-error>
+                <mat-hint align="end">{{ form.get('preco')?.value?.length || 0 }}/10</mat-hint>
+              </mat-form-field>
+            </div>
           </div>
-        </div>
-        <div>
-          <button mat-raised-button color="primary" type="submit">Enviar</button>
-          <button mat-button (click)="onCancel()">Cancelar</button>
-        </div>
-      </form>
+          <div>
+            <button mat-raised-button color="primary" type="submit">Enviar</button>
+            <button mat-button (click)="onCancel()">Cancelar</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
+</mat-card>

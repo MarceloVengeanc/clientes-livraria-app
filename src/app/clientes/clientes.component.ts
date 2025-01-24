@@ -11,7 +11,7 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./clientes.component.scss']
 })
 export class ClientesComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'nome', 'idade', 'email', 'acoes'];
+  displayedColumns: string[] = ['id', 'nome', 'sexo', 'endereco', 'acoes'];
   dataSource = new MatTableDataSource<Clientes>();
   totalElements: number = 0;
   pageSize: number = 5;
