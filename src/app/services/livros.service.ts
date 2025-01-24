@@ -1,18 +1,17 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Livros } from '../livros/livros';
 import { Observable, throwError } from 'rxjs';
-import { Clientes } from '../clientes/cadastro-clientes/clientes';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClientesService {
-
-  private apiUrl = 'http://localhost:80/api/person/v1';
+export class LivrosService {
+  private apiUrl = 'http://localhost:80/api/book/v1';
 
   constructor(private http: HttpClient) { }
 
-  getClientes(page: number = 0, size: number = 12, direction: string = 'asc'): Observable<any> {
+  getLivros(page: number = 0, size: number = 12, direction: string = 'asc'): Observable<any> {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString())
@@ -29,10 +28,10 @@ export class ClientesService {
       'Authorization': 'Bearer ' + token
     };
 
-    return this.http.get<any>(this.apiUrl, { params, headers });
+    return this.http.get<Livros>(this.apiUrl, { params, headers });
   }
 
-  getAllClientes(): Observable<Clientes> {
+  getAllLivros(): Observable<Livros> {
     const token = localStorage.getItem('authToken');
 
     if (!token) {
@@ -42,8 +41,7 @@ export class ClientesService {
     const headers = {
       'Authorization': 'Bearer ' + token
     };
-    return this.http.get<Clientes>(this.apiUrl, { headers });
+    return this.http.get<Livros>(this.apiUrl, { headers });
   }
-
 
 }

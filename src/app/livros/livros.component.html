@@ -1,7 +1,10 @@
+<div *ngIf="loading" class="spinner">
+  <mat-spinner></mat-spinner>
+</div>
 <mat-card>
   <mat-card-title style="margin-left: 16px;">Livros</mat-card-title>
   <div>
-    <button mat-raised-button color="primary" type="button" routerLink="/cadastrolivros">
+    <button mat-raised-button color="primary" type="button" (click)="cadastrarLivro()">
       Novo
       <mat-icon>add</mat-icon>
     </button>
@@ -15,35 +18,35 @@
 
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-      <ng-container matColumnDef="id">
+      <ng-container class="container" matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
         <td mat-cell *matCellDef="let livro">{{ livro.id}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="titulo">
+      <ng-container class="container" matColumnDef="titulo">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Título</th>
-        <td mat-cell *matCellDef="let livro">{{ livro.firstName + " " + livro.lastName }}</td>
+        <td mat-cell *matCellDef="let livro">{{ livro.title }}</td>
       </ng-container>
 
       <ng-container matColumnDef="autor">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Autor</th>
-        <td mat-cell *matCellDef="let livro">{{ livro.gender }}</td>
+        <td mat-cell *matCellDef="let livro">{{ livro.author }}</td>
       </ng-container>
 
       <ng-container matColumnDef="preco">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Preço</th>
-        <td mat-cell *matCellDef="let livro">{{ livro.gender }}</td>
+        <td mat-cell *matCellDef="let livro">{{ livro.price | currency:'BRL':'symbol':'1.2-2' }}</td>
       </ng-container>
 
       <ng-container matColumnDef="dataLancamento">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Data Lançamento</th>
-        <td mat-cell *matCellDef="let livro">{{ livro.address }}</td>
+        <td mat-cell *matCellDef="let livro">{{ livro.launchDate | date:'dd/MM/yyyy' }}</td>
       </ng-container>
 
       <ng-container matColumnDef="acoes">
         <th mat-header-cell *matHeaderCellDef>Ações</th>
         <td mat-cell *matCellDef="let livro">
-          <button mat-icon-button color="primary">
+          <button mat-icon-button color="primary" (click)="editarLivro(livro)">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button color="warn" (click)="excluirLivro(livro.id)">

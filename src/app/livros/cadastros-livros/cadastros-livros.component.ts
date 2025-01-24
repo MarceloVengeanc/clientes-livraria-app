@@ -1,33 +1,54 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Livros } from '../livros';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-cadastro-livros',
-  templateUrl: '../cadastros-livros/cadastros-livros.component.html',
-  styleUrls: ['../cadastros-livros/cadastros-livros.component.scss']
+  templateUrl: './cadastros-livros.component.html',
+  styleUrls: ['./cadastros-livros.component.scss']
 })
-export class CadastrosLivrosComponent {
+export class CadastrosLivrosComponent implements OnInit {
 
   form: FormGroup;
-  amount: any;
-  taxableValue!: string;
+  livro!: Livros;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<CadastrosLivrosComponent>
+  ) {
     this.form = this.fb.group({
-      nome: ['', Validators.required],
-      sobrenome: ['', Validators.required],
-      endereco: ['', Validators.required],
-      sexo: ['', Validators.required]
+      titulo: ['', Validators.required],
+      autor: ['', Validators.required],
+      preco: ['', Validators.required],
+      dataLancamento: ['', Validators.required]
     });
+  }
+
+  ngOnInit(): void {
+    if (this.data && this.data.livro) {
+      this.livro = this.data.livro;
+      this.form.patchValue({
+        titulo: this.livro.title,
+        autor: this.livro.author,
+        preco: this.livro.price,
+        dataLancamento: this.livro.launchDate
+      });
+    }
   }
 
   onSubmit() {
     if (this.form.valid) {
-      console.log('Form preenchido:', this.form.value);
+      const livroData: Livros = this.form.value;
+      if (this.livro) {
+        livroData.id = this.livro.id;
+      }
+      this.dialogRef.close(livroData);
     }
   }
 
   onCancel() {
-    this.form.reset();
+    this.dialogRef.close();
   }
 }

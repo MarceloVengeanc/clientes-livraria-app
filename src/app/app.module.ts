@@ -8,6 +8,7 @@ import { MainComponent } from './main/main.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidenavComponent } from './layout/sidenav/sidenav.component';
 
+
 import { MatButtonModule } from '@angular/material/button';
 
 import { MatTableModule } from '@angular/material/table';
@@ -17,12 +18,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { RouterLinkActiveExactDirective } from './main/appRouterLinkActiveExact.directive';
 import { CadastroClientesComponent } from './clientes/cadastro-clientes/cadastro-clientes.component';
@@ -64,6 +67,7 @@ import { CadastrosLivrosComponent } from './livros/cadastros-livros/cadastros-li
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
+    RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
     //imports material
@@ -80,10 +84,11 @@ import { CadastrosLivrosComponent } from './livros/cadastros-livros/cadastros-li
     MatSidenavModule,
     MatTableModule,
     MatToolbarModule,
-    RouterModule,
     MatPaginatorModule,
     MatChipsModule,
-    MatSortModule
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatDialogModule
 
   ],
   providers: [],

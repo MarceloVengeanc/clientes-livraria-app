@@ -1,6 +1,11 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Livros } from './livros';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { LivrosService } from '../services/livros.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CadastrosLivrosComponent } from './cadastros-livros/cadastros-livros.component';
 
 @Component({
   selector: 'app-livros',
@@ -12,21 +17,54 @@ export class LivrosComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'titulo', 'autor', 'preco', 'dataLancamento', 'acoes'];
   dataSource = new MatTableDataSource<Livros>();
 
+  loading = false;
+
   totalElements: number = 0;
   pageSize: number = 5;
   pageIndex: number = 0;
 
+  livro: any;
 
-  ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(
+    private livrosService: LivrosService,
+    private dialog: MatDialog
+  ) {
+
   }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.loading = true;
+    this.getLivros(this.pageIndex, this.pageSize)
   }
 
-  excluirLivro(id: number) {
-    this.dataSource.data = this.dataSource.data.filter(pessoa => pessoa.id !== id);
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.loading = false;
+  }
+
+  getLivros(page: number, size: number): void {
+    this.livrosService.getLivros(page, size).subscribe({
+      next: (data) => {
+        console.log(data, 'data')
+        this.dataSource.data = data?._embedded?.bookVOList ?? [];
+        if (data?.page) {
+          this.totalElements = data.page.totalElements;
+          this.pageSize = data.page.size;
+          this.pageIndex = data.page.number;
+
+          if (this.paginator) {
+            this.paginator.length = this.totalElements;
+          }
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao buscar clientes:', error);
+      }
+    });
   }
 
   onPageChanged(event: any): void {
@@ -38,5 +76,32 @@ export class LivrosComponent implements OnInit, AfterViewInit {
   aplicarFiltro(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  cadastrarLivro() {
+    const dialogRef = this.dialog.open(CadastrosLivrosComponent, {
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) return;
+      console.log('livro cadastrado', result);
+    });
+  }
+
+  editarLivro(livros: Livros) {
+    const dialogRef = this.dialog.open(CadastrosLivrosComponent, {
+      width: '400px',
+      data: { livro: livros }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Objeto editado:', result);
+      }
+    });
+  }
+
+
+  excluirLivro(id: number) {
+    this.dataSource.data = this.dataSource.data.filter(pessoa => pessoa.id !== id);
   }
 }
