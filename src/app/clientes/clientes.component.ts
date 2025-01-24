@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Clientes } from './cadastro-clientes/clientes';
 import { ClientesService } from '../services/clientes.service';
 import { MatSort } from '@angular/material/sort';
+import { CadastroClientesComponent } from './cadastro-clientes/cadastro-clientes.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-clientes',
@@ -15,14 +17,20 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'nome', 'sexo', 'endereco', 'acoes'];
   dataSource = new MatTableDataSource<Clientes>();
 
+  carregando = false;
+
   totalElements: number = 0;
   pageSize: number = 5;
   pageIndex: number = 0;
 
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private clientesService: ClientesService) { }
+  constructor(
+    private clientesService: ClientesService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.getClientes(this.pageIndex, this.pageSize);
@@ -63,6 +71,28 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  cadastrarClientes() {
+      const dialogRef = this.dialog.open(CadastroClientesComponent, {
+        width: '600px',
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (!result) return;
+      });
+    }
+
+    editarClientes(clientes: Clientes) {
+      const dialogRef = this.dialog.open(CadastroClientesComponent, {
+        width: '600px',
+        data: { cliente: clientes }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+        }
+      });
+    }
+
 
   excluirPessoa(id: number) {
     this.dataSource.data = this.dataSource.data.filter(pessoa => pessoa.id !== id);

@@ -33,7 +33,7 @@ export class CadastrosLivrosComponent implements OnInit {
         titulo: this.livro.title,
         autor: this.livro.author,
         preco: this.livro.price,
-        dataLancamento: this.livro.launchDate
+        dataLancamento: this.livro.launchDate ? new Date(this.livro.launchDate) : null
       });
     }
   }

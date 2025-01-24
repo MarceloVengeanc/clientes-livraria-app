@@ -17,7 +17,7 @@ export class LivrosComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'titulo', 'autor', 'preco', 'dataLancamento', 'acoes'];
   dataSource = new MatTableDataSource<Livros>();
 
-  loading = false;
+  carregando = false;
 
   totalElements: number = 0;
   pageSize: number = 5;
@@ -36,20 +36,17 @@ export class LivrosComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.loading = true;
     this.getLivros(this.pageIndex, this.pageSize)
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.loading = false;
   }
 
   getLivros(page: number, size: number): void {
     this.livrosService.getLivros(page, size).subscribe({
       next: (data) => {
-        console.log(data, 'data')
         this.dataSource.data = data?._embedded?.bookVOList ?? [];
         if (data?.page) {
           this.totalElements = data.page.totalElements;
@@ -83,19 +80,17 @@ export class LivrosComponent implements OnInit, AfterViewInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (!result) return;
-      console.log('livro cadastrado', result);
     });
   }
 
   editarLivro(livros: Livros) {
     const dialogRef = this.dialog.open(CadastrosLivrosComponent, {
-      width: '400px',
+      width: '600px',
       data: { livro: livros }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('Objeto editado:', result);
       }
     });
   }

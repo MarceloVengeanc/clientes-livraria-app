@@ -1,7 +1,10 @@
+<div *ngIf="carregando" class="spinner">
+  <mat-spinner></mat-spinner>
+</div>
 <mat-card>
   <mat-card-title style="margin-left: 16px;">Clientes</mat-card-title>
   <div>
-    <button mat-raised-button color="primary" type="button" routerLink="/cadastroclientes">
+    <button mat-raised-button color="primary" type="button" (click)="cadastrarClientes()">
       Novo
       <mat-icon>add</mat-icon>
     </button>
@@ -15,22 +18,22 @@
 
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-      <ng-container matColumnDef="id">
+      <ng-container class="container" matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
         <td mat-cell *matCellDef="let pessoa">{{ pessoa.id}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="nome">
+      <ng-container class="container" matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
         <td mat-cell *matCellDef="let pessoa">{{ pessoa.firstName + " " + pessoa.lastName }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="sexo">
+      <ng-container class="container" matColumnDef="sexo">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Sexo</th>
         <td mat-cell *matCellDef="let pessoa">{{ pessoa.gender }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="endereco">
+      <ng-container class="container" matColumnDef="endereco">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Endereço</th>
         <td mat-cell *matCellDef="let pessoa">{{ pessoa.address }}</td>
       </ng-container>
@@ -38,7 +41,7 @@
       <ng-container matColumnDef="acoes">
         <th mat-header-cell *matHeaderCellDef>Ações</th>
         <td mat-cell *matCellDef="let pessoa">
-          <button mat-icon-button color="primary">
+          <button mat-icon-button color="primary" (click)="editarClientes(pessoa)">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button color="warn" (click)="excluirPessoa(pessoa.id)">

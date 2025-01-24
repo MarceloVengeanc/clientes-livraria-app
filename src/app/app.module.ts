@@ -26,6 +26,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule  } from '@angular/material/datepicker';
 import { FormsModule } from '@angular/forms';
 import { RouterLinkActiveExactDirective } from './main/appRouterLinkActiveExact.directive';
 import { CadastroClientesComponent } from './clientes/cadastro-clientes/cadastro-clientes.component';
@@ -33,7 +34,7 @@ import { HomeComponent } from './home/home.component';
 import { CalendarioComponent } from './calendario/calendario.component';
 import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatOptionModule } from '@angular/material/core';
+import { MAT_DATE_LOCALE, MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -88,10 +89,13 @@ import { CadastrosLivrosComponent } from './livros/cadastros-livros/cadastros-li
     MatChipsModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+
 
   ],
-  providers: [],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
