@@ -6,6 +6,8 @@ import { ClientesService } from '../services/clientes.service';
 import { MatSort } from '@angular/material/sort';
 import { CadastroClientesComponent } from './cadastro-clientes/cadastro-clientes.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-clientes',
@@ -23,16 +25,20 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   pageSize: number = 5;
   pageIndex: number = 0;
 
+  mensagemErro: string | null = null;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private clientesService: ClientesService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
+    const href = this.route.snapshot.queryParamMap.get('href')
     this.getClientes(this.pageIndex, this.pageSize);
   }
 
@@ -45,6 +51,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     this.clientesService.getClientes(page, size).subscribe({
       next: (data) => {
         this.dataSource.data = data?._embedded?.personVOList ?? [];
+        console.log(this.dataSource.data,'vem co pai')
         if (data?.page) {
           this.totalElements = data.page.totalElements;
           this.pageSize = data.page.size;
@@ -73,28 +80,41 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   }
 
   cadastrarClientes() {
-      const dialogRef = this.dialog.open(CadastroClientesComponent, {
-        width: '600px',
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        if (!result) return;
-      });
-    }
+    const dialogRef = this.dialog.open(CadastroClientesComponent, {
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getClientes(this.pageIndex, this.pageSize);
+      }
+    });
+  }
 
-    editarClientes(clientes: Clientes) {
-      const dialogRef = this.dialog.open(CadastroClientesComponent, {
-        width: '600px',
-        data: { cliente: clientes }
-      });
+  editarClientes(clientes: Clientes) {
+    const dialogRef = this.dialog.open(CadastroClientesComponent, {
+      width: '600px',
+      data: { cliente: clientes }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getClientes(this.pageIndex, this.pageSize);
+      }
+    });
+  }
 
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
+  excluirCliente(id: number): void {
+    if (confirm(`Tem certeza de que deseja excluir o cliente?`)) {
+      this.clientesService.excluirCliente(id).subscribe(
+        () => {
+          this.snackBar.open('Cliente excluído com sucesso!', 'Fechar', {
+            duration: 3000
+          });
+          this.getClientes(this.pageIndex, this.pageSize);
+        },
+        (error) => {
+          this.mensagemErro = `Erro ao excluir o cliente com ID ${id}.`;
         }
-      });
+      );
     }
-
-
-  excluirPessoa(id: number) {
-    this.dataSource.data = this.dataSource.data.filter(pessoa => pessoa.id !== id);
   }
 }

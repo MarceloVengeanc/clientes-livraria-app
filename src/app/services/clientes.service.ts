@@ -12,38 +12,44 @@ export class ClientesService {
 
   constructor(private http: HttpClient) { }
 
+  private getAuthHeaders(): { headers: { Authorization: string } } {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      console.error('Token não encontrado');
+      throw new Error('Token não encontrado');
+    }
+    return {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    };
+  }
+
   getClientes(page: number = 0, size: number = 12, direction: string = 'asc'): Observable<any> {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString())
       .set('direction', direction);
 
-    const token = localStorage.getItem('authToken');
-
-    if (!token) {
-      console.error('Token não encontrado');
-      return throwError(() => new Error('Token não encontrado'));
-    }
-
-    const headers = {
-      'Authorization': 'Bearer ' + token
-    };
-
-    return this.http.get<any>(this.apiUrl, { params, headers });
+    return this.http.get<any>(this.apiUrl, { params, ...this.getAuthHeaders() });
   }
 
-  getAllClientes(): Observable<Clientes> {
-    const token = localStorage.getItem('authToken');
-
-    if (!token) {
-      console.error('Token não encontrado');
-      return throwError(() => new Error('Token não encontrado'));
-    }
-    const headers = {
-      'Authorization': 'Bearer ' + token
-    };
-    return this.http.get<Clientes>(this.apiUrl, { headers });
+  getTotalClientes(): Observable<any> {
+    return this.http.get<Clientes>(this.apiUrl, this.getAuthHeaders());
   }
 
+  atualizaCliente(url: string, cliente: Clientes): Observable<Clientes> {
+    return this.http.put<Clientes>(url, cliente, this.getAuthHeaders());
+  }
+
+  cadastrarCliente(cliente: Clientes): Observable<any> {
+    return this.http.post<Clientes>(this.apiUrl, cliente, this.getAuthHeaders());
+  }
+
+  excluirCliente(id: number): Observable<any> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.delete<any>(url, this.getAuthHeaders());
+  }
 
 }
+

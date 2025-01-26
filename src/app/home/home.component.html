@@ -3,8 +3,8 @@
     <mat-card-header>
       <div class="icone-group"></div>
       <div class="container-texto">
-        <mat-card-title class="mat-card-title">Clientes Cadastrados:</mat-card-title>
-        <mat-card-subtitle>Cadastros de hoje:</mat-card-subtitle>
+        <mat-card-title class="mat-card-title">{{ 'Clientes Cadastrados: ' + totalClientes}}</mat-card-title>
+        <mat-card-subtitle>{{'Cadastros hoje: ' + clientesHoje}}</mat-card-subtitle>
       </div>
     </mat-card-header>
   </mat-card>
@@ -13,8 +13,8 @@
     <mat-card-header>
       <div class="icone-book"></div>
       <div class="container-texto">
-        <mat-card-title class="mat-card-title">Livros Cadastrados:</mat-card-title>
-        <mat-card-subtitle>Cadastros de hoje:</mat-card-subtitle>
+        <mat-card-title class="mat-card-title">{{ 'Livros Cadastrados: ' + totalLivros}}</mat-card-title>
+        <mat-card-subtitle>{{'Cadastros hoje: ' + livrosHoje}}</mat-card-subtitle>
       </div>
     </mat-card-header>
   </mat-card>
@@ -23,8 +23,8 @@
     <mat-card-header>
       <div class="icone-money"></div>
       <div class="container-texto">
-        <mat-card-title class="mat-card-title">Vendas:</mat-card-title>
-        <mat-card-subtitle>Atualização recente:</mat-card-subtitle>
+        <mat-card-title class="mat-card-title">{{'Vendas ' + vendas}}</mat-card-title>
+        <mat-card-subtitle>{{'Vendas hoje ' + vendasHoje}}</mat-card-subtitle>
       </div>
     </mat-card-header>
   </mat-card>
@@ -33,8 +33,8 @@
     <mat-card-header>
       <div class="icone-checkbook"></div>
       <div class="container-texto">
-        <mat-card-title class="mat-card-title">Empréstimos:</mat-card-title>
-        <mat-card-subtitle>Atualização recente:</mat-card-subtitle>
+        <mat-card-title class="mat-card-title">{{'Empréstimos: ' + emprestimos}}</mat-card-title>
+        <mat-card-subtitle>{{'Empréstimos hoje: ' + EmprestimosHoje}}</mat-card-subtitle>
       </div>
     </mat-card-header>
   </mat-card>
@@ -43,8 +43,8 @@
     <mat-card-header>
       <div class="icone-thumbdown"></div>
       <div class="container-texto">
-        <mat-card-title class="mat-card-title">Devoluções em Atraso:</mat-card-title>
-        <mat-card-subtitle>Atualização recente:</mat-card-subtitle>
+        <mat-card-title class="mat-card-title">{{'Empréstimos em Atraso: ' + emprestimosAtraso}}</mat-card-title>
+        <mat-card-subtitle>{{'Total: ' + TotalDevolucoesAtraso}}</mat-card-subtitle>
       </div>
     </mat-card-header>
   </mat-card>
@@ -53,8 +53,8 @@
     <mat-card-header>
       <div class="icone-warning"></div>
       <div class="container-texto">
-        <mat-card-title class="mat-card-title">Empréstimos com vencimento menor que 7 dias:</mat-card-title>
-        <mat-card-subtitle>Atualização recente:</mat-card-subtitle>
+        <mat-card-title class="mat-card-title">{{'Empréstimos com vencimento menor que 7 dias: ' + emprestimosvencendo}}</mat-card-title>
+        <mat-card-subtitle>{{'Vence hoje: ' + venceHoje}} </mat-card-subtitle>
       </div>
     </mat-card-header>
   </mat-card>
