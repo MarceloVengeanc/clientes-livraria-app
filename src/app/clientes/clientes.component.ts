@@ -8,6 +8,7 @@ import { CadastroClientesComponent } from './cadastro-clientes/cadastro-clientes
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-clientes',
@@ -24,6 +25,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   totalElements: number = 0;
   pageSize: number = 5;
   pageIndex: number = 0;
+
 
   mensagemErro: string | null = null;
 
@@ -47,18 +49,25 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  getClientes(page: number, size: number): void {
-    this.clientesService.getClientes(page, size).subscribe({
+  getClientes(page: number, size: number, filter: string = ''): void {
+    const getClientesMethod = filter.trim()
+      ? this.clientesService.getClientesByName(filter, page, size)
+      : this.clientesService.getClientes(page, size);
+
+    getClientesMethod.subscribe({
       next: (data) => {
-        this.dataSource.data = data?._embedded?.personVOList ?? [];
-        console.log(this.dataSource.data,'vem co pai')
+        const clientes = data._embedded?.personVOList ?? [];
+
+        this.dataSource.data = clientes;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
         if (data?.page) {
           this.totalElements = data.page.totalElements;
-          this.pageSize = data.page.size;
           this.pageIndex = data.page.number;
 
           if (this.paginator) {
             this.paginator.length = this.totalElements;
+            this.paginator.pageIndex = this.pageIndex;
           }
         }
       },
@@ -68,15 +77,16 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     });
   }
 
+
   onPageChanged(event: any): void {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
     this.getClientes(this.pageIndex, this.pageSize);
   }
 
-  aplicarFiltro(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  aplicarFiltro(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.getClientes(0, 12, filterValue);
   }
 
   cadastrarClientes() {

@@ -67,7 +67,7 @@ export class LivrosComponent implements OnInit, AfterViewInit {
   onPageChanged(event: any): void {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-
+    this.getLivros(this.pageIndex, this.pageSize);
   }
 
   aplicarFiltro(event: Event): void {

@@ -3,6 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { Clientes } from '../clientes/cadastro-clientes/clientes';
 
+interface PaginatedResponse {
+  totalElements: number;
+  totalPages: number;
+  content: Clientes[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,13 +31,24 @@ export class ClientesService {
     };
   }
 
-  getClientes(page: number = 0, size: number = 12, direction: string = 'asc'): Observable<any> {
+  getClientes(page: number = 0, size: number = 5, direction: string = 'asc'): Observable<any> {
+    const params = new HttpParams()
+    .set('page', page.toString())
+    .set('size', size.toString())
+    .set('direction', direction);
+
+    return this.http.get<any>(this.apiUrl, { params, ...this.getAuthHeaders() });
+  }
+
+  getClientesByName(firstName: string, page: number = 0, size: number = 5, direction: string = 'asc'): Observable<any> {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString())
       .set('direction', direction);
 
-    return this.http.get<any>(this.apiUrl, { params, ...this.getAuthHeaders() });
+    const url = `${this.apiUrl}/findPersonByName/${firstName}`;
+
+    return this.http.get<any>(url, { params, ...this.getAuthHeaders() });
   }
 
   getTotalClientes(): Observable<any> {
@@ -51,5 +68,10 @@ export class ClientesService {
     return this.http.delete<any>(url, this.getAuthHeaders());
   }
 
+  getAllClientes(): Observable<any> {
+    return this.http.get<Clientes>(this.apiUrl + '/all', this.getAuthHeaders());
+  }
+
 }
+
 

@@ -9,6 +9,8 @@ import { LoginComponent } from './login/login.component';
 import { authGuard } from './auth.guard';
 import { ClientesComponent } from './clientes/clientes.component';
 import { CadastrosLivrosComponent } from './livros/cadastros-livros/cadastros-livros.component';
+import { DetalhadoComponent } from './dashboard/detalhado/detalhado.component';
+import { MensagensComponent } from './dashboard/mensagens/mensagens.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -20,6 +22,8 @@ const routes: Routes = [
   { path: 'configuracoes', component: ConfiguracoesComponent, canActivate: [authGuard] },
   { path: 'clientes', component: ClientesComponent, canActivate: [authGuard] },
   { path: 'cadastrolivros', component: CadastrosLivrosComponent, canActivate: [authGuard] },
+  { path: 'detalhado', component: DetalhadoComponent, canActivate: [authGuard] },
+  { path: 'mensagens', component: MensagensComponent, canActivate: [authGuard] },
 ];
 
 @NgModule({

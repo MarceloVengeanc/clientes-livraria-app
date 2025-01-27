@@ -24,7 +24,7 @@ export class LivrosService {
     };
   }
 
-  getLivros(page: number = 0, size: number = 12, direction: string = 'asc'): Observable<any> {
+  getLivros(page: number = 0, size: number = 5, direction: string = 'asc'): Observable<any> {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString())

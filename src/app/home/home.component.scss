@@ -1,119 +1,43 @@
-@import '../../styles.scss';
-
-.mat-card-lenght {
-  max-width: 350px;
-  height: 100px;
+.home-container {
+  font-family: Arial, sans-serif;
+  margin: 20px;
 }
 
-mat-card-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+section {
+  margin-bottom: 20px;
 }
 
-
-.container-texto {
-  display: flex;
-  flex-direction: column;
+h1, h2 {
+  color: #2c3e50;
 }
 
-.mat-card-title {
-  font-size: 18px;
-  font-weight: bold;
+a {
+  color: #2980b9;
+  text-decoration: none;
 }
 
-.mat-card-subtitle {
-  font-size: 14px;
-  color: #777;
+a:hover {
+  text-decoration: underline;
 }
 
-.container-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
+ul {
+  list-style-type: none;
+  padding-left: 0;
 }
 
-.icone-group {
-  font-size: 32px;
-  color: #401a7e;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &::before {
-    content: "group";
-    font-family: 'Material Icons';
-    font-weight: normal;
-  }
+ul li {
+  margin-bottom: 10px;
 }
 
-.icone-book {
-  font-size: 32px;
-  color: #401a7e;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &::before {
-    content: "menu_book";
-    font-family: 'Material Icons';
-    font-weight: normal;
-  }
+.welcome {
+  background-color: #ecf0f1;
+  padding: 20px;
+  border-radius: 8px;
 }
 
-.icone-money {
-  font-size: 32px;
-  color: #401a7e;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &::before {
-    content: "attach_money";
-    font-family: 'Material Icons';
-    font-weight: normal;
-  }
-}
-
-.icone-checkbook {
-  font-size: 32px;
-  color: #401a7e;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &::before {
-    content: "book";
-    font-family: 'Material Icons';
-    font-weight: normal;
-  }
-}
-
-.icone-thumbdown {
-  font-size: 32px;
-  color: #401a7e;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &::before {
-    content: "thumb_down";
-    font-family: 'Material Icons';
-    font-weight: normal;
-  }
-}
-
-.icone-warning {
-  font-size: 32px;
-  color: #401a7e;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &::before {
-    content: "warning";
-    font-family: 'Material Icons';
-    font-weight: normal;
-  }
+.saiba-mais, .sobre, .ultimas-noticias, .ultima-atualizacao, .novo-recurso, .contato, .redes-sociais {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

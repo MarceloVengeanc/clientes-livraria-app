@@ -27,7 +27,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatDatepickerModule  } from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLinkActiveExactDirective } from './main/appRouterLinkActiveExact.directive';
 import { CadastroClientesComponent } from './clientes/cadastro-clientes/cadastro-clientes.component';
@@ -44,6 +45,8 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { MatSortModule } from '@angular/material/sort';
 import { LivrosComponent } from './livros/livros.component';
 import { CadastrosLivrosComponent } from './livros/cadastros-livros/cadastros-livros.component';
+import { DetalhadoComponent } from './dashboard/detalhado/detalhado.component';
+import { MensagensComponent } from './dashboard/mensagens/mensagens.component';
 
 
 @NgModule({
@@ -61,7 +64,9 @@ import { CadastrosLivrosComponent } from './livros/cadastros-livros/cadastros-li
     LoginComponent,
     MainComponent,
     RouterLinkActiveExactDirective,
-    SidenavComponent
+    SidenavComponent,
+    DetalhadoComponent,
+    MensagensComponent
 
   ],
   imports: [
@@ -93,7 +98,8 @@ import { CadastrosLivrosComponent } from './livros/cadastros-livros/cadastros-li
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    CommonModule,
 
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
