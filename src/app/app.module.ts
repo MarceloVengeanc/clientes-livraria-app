@@ -31,7 +31,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLinkActiveExactDirective } from './main/appRouterLinkActiveExact.directive';
-import { CadastroClientesComponent } from './clientes/cadastro-clientes/cadastro-clientes.component';
+import { CadastroPessoasComponent } from './clientes/cadastro-pessoas/cadastro-pessoas.component';
 import { HomeComponent } from './home/home.component';
 import { CalendarioComponent } from './calendario/calendario.component';
 import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
@@ -52,7 +52,7 @@ import { MensagensComponent } from './dashboard/mensagens/mensagens.component';
 @NgModule({
   declarations: [
     AppComponent,
-    CadastroClientesComponent,
+    CadastroPessoasComponent,
     CadastrosLivrosComponent,
     CalendarioComponent,
     ClientesComponent,

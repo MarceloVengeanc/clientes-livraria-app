@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Clientes } from 'src/app/clientes/cadastro-clientes/clientes';
+import { Clientes } from 'src/app/clientes/cadastro-pessoas/clientes';
 import { Livros } from 'src/app/livros/livros';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { LivrosService } from 'src/app/services/livros.service';

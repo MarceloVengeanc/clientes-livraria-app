@@ -1,14 +1,16 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Clientes } from './cadastro-clientes/clientes';
+import { Clientes } from './cadastro-pessoas/clientes';
 import { ClientesService } from '../services/clientes.service';
 import { MatSort } from '@angular/material/sort';
-import { CadastroClientesComponent } from './cadastro-clientes/cadastro-clientes.component';
+import { CadastroPessoasComponent } from './cadastro-pessoas/cadastro-pessoas.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter } from 'rxjs';
+import { Autores } from './cadastro-pessoas/autores';
+import { AutoresService } from '../services/autores.service';
 
 @Component({
   selector: 'app-clientes',
@@ -17,15 +19,20 @@ import { filter } from 'rxjs';
 })
 export class ClientesComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'nome', 'sexo', 'endereco', 'acoes'];
-  dataSource = new MatTableDataSource<Clientes>();
-  autoresDataSource = [];
+  displayedColumnsClientes: string[] = ['id', 'nome', 'sexo', 'endereco', 'acoes'];
+  displayedColumnsAutores: string[] = ['id', 'nome', 'sexo', 'nacionalidade', 'acoes'];
+  clientesDataSource = new MatTableDataSource<Clientes>();
+  autoresDataSource = new MatTableDataSource<Autores>();
 
   carregando = false;
 
-  totalElements: number = 0;
-  pageSize: number = 5;
-  pageIndex: number = 0;
+  totalElements = 0;
+  pageIndex = 0;
+  pageSize = 12;
+
+  totalElementsAutores: number = 0;
+  pageSizeAutores: number = 5;
+  pageIndexAutores: number = 0;
 
 
   mensagemErro: string | null = null;
@@ -35,33 +42,31 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
   constructor(
     private clientesService: ClientesService,
+    private autoresService: AutoresService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
-    const href = this.route.snapshot.queryParamMap.get('href')
     this.getClientes(this.pageIndex, this.pageSize);
+    this.getAutores();
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.clientesDataSource.paginator = this.paginator;
+    this.clientesDataSource.sort = this.sort;
   }
 
-  getClientes(page: number, size: number, filter: string = ''): void {
-    const getClientesMethod = filter.trim()
-      ? this.clientesService.getClientesByName(filter, page, size)
-      : this.clientesService.getClientes(page, size);
-
-    getClientesMethod.subscribe({
+  getAutores() {
+    const getAutoresMethod = this.autoresService.getAllAutores();
+    getAutoresMethod.subscribe({
       next: (data) => {
-        const clientes = data._embedded?.personVOList ?? [];
+        const autores = data ?? [];
+        this.autoresDataSource.data = autores;
+        this.autoresDataSource.paginator = this.paginator;
+        this.autoresDataSource.sort = this.sort;
 
-        this.dataSource.data = clientes;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
         if (data?.page) {
           this.totalElements = data.page.totalElements;
           this.pageIndex = data.page.number;
@@ -73,16 +78,44 @@ export class ClientesComponent implements OnInit, AfterViewInit {
         }
       },
       error: (error) => {
+        console.error('Erro ao buscar autores:', error);
+      }
+    })
+  }
+
+  getClientes(page: number, size: number, filter: string = ''){
+    const getClientesMethod = filter.trim()
+      ? this.clientesService.getClientesByName(filter, page, size)
+      : this.clientesService.getClientes(page, size);
+
+    getClientesMethod.subscribe({
+      next: (data) => {
+        const clientes = data._embedded?.personVOList ?? [];
+
+        this.clientesDataSource.data = clientes;
+        this.clientesDataSource.paginator = this.paginator;
+        this.clientesDataSource.sort = this.sort;
+        if (data?.page) {
+          this.totalElements = data.page.totalElements;
+          this.pageIndex = data.page.number;
+
+
+        }
+      },
+      error: (error) => {
         console.error('Erro ao buscar clientes:', error);
       }
     });
   }
 
-
-  onPageChanged(event: any): void {
+  onPageChangedAuthors(event: any): void {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.getClientes(this.pageIndex, this.pageSize);
+    this.getAutores();
+  }
+
+  onPageChange(event: any) {
+    this.getClientes(event.pageIndex, event.pageSize);
   }
 
   aplicarFiltro(event: Event) {
@@ -91,7 +124,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   }
 
   cadastrarClientes() {
-    const dialogRef = this.dialog.open(CadastroClientesComponent, {
+    const dialogRef = this.dialog.open(CadastroPessoasComponent, {
       width: '600px',
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -102,7 +135,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   }
 
   editarClientes(clientes: Clientes) {
-    const dialogRef = this.dialog.open(CadastroClientesComponent, {
+    const dialogRef = this.dialog.open(CadastroPessoasComponent, {
       width: '600px',
       data: { cliente: clientes }
     });

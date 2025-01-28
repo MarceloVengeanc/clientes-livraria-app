@@ -2,7 +2,7 @@
   <mat-spinner></mat-spinner>
 </div>
 <mat-card>
-  <mat-card-title style="margin-left: 16px;">Clientes</mat-card-title>
+  <mat-card-title style="margin-left: 16px;">Pessoas</mat-card-title>
   <div>
     <button mat-raised-button color="primary" type="button" (click)="cadastrarClientes()">
       Novo
@@ -19,7 +19,7 @@
     <mat-tab-group>
       <mat-tab label="Clientes">
 
-        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <table mat-table [dataSource]="clientesDataSource" matSort class="mat-elevation-z8">
 
           <ng-container class="container" matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
@@ -53,15 +53,61 @@
             </td>
           </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsClientes"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsClientes;"></tr>
+        </table>
+
+        <mat-paginator [length]="totalElements" [pageSize]="12" [pageIndex]="pageIndex"
+          [pageSizeOptions]="[12, 24, 48]" [showFirstLastButtons]="true" (page)="onPageChange($event)">
+        </mat-paginator>
+
+      </mat-tab>
+
+      <mat-tab label="Autores">
+        <table mat-table [dataSource]="autoresDataSource" matSort class="mat-elevation-z8">
+
+          <ng-container class="container" matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+            <td mat-cell *matCellDef="let autor">{{ autor.id}}</td>
+          </ng-container>
+
+          <ng-container class="container" matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+            <td mat-cell *matCellDef="let autor">{{ autor.name }}</td>
+          </ng-container>
+
+          <ng-container class="container" matColumnDef="sexo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Sexo</th>
+            <td mat-cell *matCellDef="let autor">{{ autor.gender }}</td>
+          </ng-container>
+
+          <ng-container class="container" matColumnDef="nacionalidade">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nacionalidade</th>
+            <td mat-cell *matCellDef="let autor">{{ autor.nationality }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="acoes">
+            <th mat-header-cell *matHeaderCellDef>Ações</th>
+            <td mat-cell *matCellDef="let autor">
+              <button mat-icon-button color="primary" (click)="editarClientes(autor)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="excluirCliente(autor.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsAutores"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsAutores;"></tr>
         </table>
 
         <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20, 50]"
-          showFirstLastButtons (page)="onPageChanged($event)">
+          showFirstLastButtons (page)="onPageChange($event)">
         </mat-paginator>
-        <mat-tab label="Autores">Autores</mat-tab>
+
       </mat-tab>
     </mat-tab-group>
+
   </mat-card-content>
 </mat-card>

@@ -6,23 +6,23 @@ import { Clientes } from './clientes';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-cadastro-clientes',
-  templateUrl: './cadastro-clientes.component.html',
-  styleUrls: ['./cadastro-clientes.component.scss'],
+  selector: 'app-cadastro-pessoas',
+  templateUrl: './cadastro-pessoas.component.html',
+  styleUrls: ['./cadastro-pessoas.component.scss'],
 })
-export class CadastroClientesComponent implements OnInit {
+export class CadastroPessoasComponent implements OnInit {
   cliente!: any;
   form: FormGroup;
 
   gender = [
-    { id: 1, value: 'Male', viewValue: 'Masculino' },
-    { id: 2, value: 'Female', viewValue: 'Feminino' },
+    { id: 1, value: 'Masculino', viewValue: 'Masculino' },
+    { id: 2, value: 'Feminino', viewValue: 'Feminino' },
   ];
 
   constructor(
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<CadastroClientesComponent>,
+    private dialogRef: MatDialogRef<CadastroPessoasComponent>,
     private clientesService: ClientesService,
     private snackBar: MatSnackBar
   ) {
