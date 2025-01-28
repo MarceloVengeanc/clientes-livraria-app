@@ -8,7 +8,6 @@ import { CadastroPessoasComponent } from './cadastro-pessoas/cadastro-pessoas.co
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { filter } from 'rxjs';
 import { Autores } from './cadastro-pessoas/autores';
 import { AutoresService } from '../services/autores.service';
 
@@ -31,9 +30,8 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   pageSize = 12;
 
   totalElementsAutores: number = 0;
-  pageSizeAutores: number = 5;
   pageIndexAutores: number = 0;
-
+  pageSizeAutores: number = 5;
 
   mensagemErro: string | null = null;
 
@@ -58,32 +56,8 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     this.clientesDataSource.sort = this.sort;
   }
 
-  getAutores() {
-    const getAutoresMethod = this.autoresService.getAllAutores();
-    getAutoresMethod.subscribe({
-      next: (data) => {
-        const autores = data ?? [];
-        this.autoresDataSource.data = autores;
-        this.autoresDataSource.paginator = this.paginator;
-        this.autoresDataSource.sort = this.sort;
 
-        if (data?.page) {
-          this.totalElements = data.page.totalElements;
-          this.pageIndex = data.page.number;
-
-          if (this.paginator) {
-            this.paginator.length = this.totalElements;
-            this.paginator.pageIndex = this.pageIndex;
-          }
-        }
-      },
-      error: (error) => {
-        console.error('Erro ao buscar autores:', error);
-      }
-    })
-  }
-
-  getClientes(page: number, size: number, filter: string = ''){
+  getClientes(page: number = 0, size: number = 12, filter: string = '') {
     const getClientesMethod = filter.trim()
       ? this.clientesService.getClientesByName(filter, page, size)
       : this.clientesService.getClientes(page, size);
@@ -95,11 +69,15 @@ export class ClientesComponent implements OnInit, AfterViewInit {
         this.clientesDataSource.data = clientes;
         this.clientesDataSource.paginator = this.paginator;
         this.clientesDataSource.sort = this.sort;
+
         if (data?.page) {
           this.totalElements = data.page.totalElements;
           this.pageIndex = data.page.number;
 
-
+          if (this.paginator) {
+            this.paginator.pageIndex = this.pageIndex;
+            this.paginator.length = this.totalElements;
+          }
         }
       },
       error: (error) => {
@@ -108,13 +86,8 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onPageChangedAuthors(event: any): void {
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.getAutores();
-  }
-
   onPageChange(event: any) {
+    console.log('Page index:', event.pageIndex, 'Page size:', event.pageSize);
     this.getClientes(event.pageIndex, event.pageSize);
   }
 
@@ -160,5 +133,36 @@ export class ClientesComponent implements OnInit, AfterViewInit {
         }
       );
     }
+  }
+
+  getAutores() {
+    const getAutoresMethod = this.autoresService.getAllAutores();
+    getAutoresMethod.subscribe({
+      next: (data) => {
+        const autores = data ?? [];
+        this.autoresDataSource.data = autores;
+        this.autoresDataSource.paginator = this.paginator;
+        this.autoresDataSource.sort = this.sort;
+
+        if (data?.page) {
+          this.totalElements = data.page.totalElements;
+          this.pageIndex = data.page.number;
+
+          if (this.paginator) {
+            this.paginator.length = this.totalElements;
+            this.paginator.pageIndex = this.pageIndex;
+          }
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao buscar autores:', error);
+      }
+    })
+  }
+
+  onPageChangedAuthors(event: any): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.getAutores();
   }
 }
