@@ -8,9 +8,9 @@ import { MainComponent } from './main/main.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidenavComponent } from './layout/sidenav/sidenav.component';
 
-
+import {MatTabsModule} from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
-
+import {MatRadioModule} from '@angular/material/radio';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -100,6 +100,8 @@ import { MensagensComponent } from './dashboard/mensagens/mensagens.component';
     MatNativeDateModule,
     MatSnackBarModule,
     CommonModule,
+    MatRadioModule,
+    MatTabsModule
 
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],

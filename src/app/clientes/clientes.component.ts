@@ -19,6 +19,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['id', 'nome', 'sexo', 'endereco', 'acoes'];
   dataSource = new MatTableDataSource<Clientes>();
+  autoresDataSource = [];
 
   carregando = false;
 

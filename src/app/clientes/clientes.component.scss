@@ -91,3 +91,8 @@ button {
 .container {
   background-color: #401a7e; /* Cor de fundo */
 }
+
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+  margin-left: 16px;
+  color: #401a7e;
+}
