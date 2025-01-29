@@ -25,9 +25,9 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
   carregando = false;
 
-  totalElements = 0;
-  pageIndex = 0;
-  pageSize = 12;
+  totalElementsClientes = 0;
+  pageIndexClientes = 0;
+  pageSizeClientes = 12;
 
   totalElementsAutores: number = 0;
   pageIndexAutores: number = 0;
@@ -35,8 +35,10 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
   mensagemErro: string | null = null;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginatorClientes!: MatPaginator;
+  @ViewChild(MatSort) sortClientes!: MatSort;
+  @ViewChild(MatPaginator) paginatorAutores!: MatPaginator;
+  @ViewChild(MatSort) sortAutores!: MatSort;
 
   constructor(
     private clientesService: ClientesService,
@@ -47,13 +49,15 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    this.getClientes(this.pageIndex, this.pageSize);
+    this.getClientes(this.pageIndexClientes, this.pageSizeClientes);
     this.getAutores();
   }
 
   ngAfterViewInit(): void {
-    this.clientesDataSource.paginator = this.paginator;
-    this.clientesDataSource.sort = this.sort;
+    this.clientesDataSource.paginator = this.paginatorClientes;
+    this.clientesDataSource.sort = this.sortClientes;
+    this.autoresDataSource.paginator = this.paginatorAutores;
+    this.autoresDataSource.sort = this.sortAutores;
   }
 
 
@@ -67,16 +71,16 @@ export class ClientesComponent implements OnInit, AfterViewInit {
         const clientes = data._embedded?.personVOList ?? [];
 
         this.clientesDataSource.data = clientes;
-        this.clientesDataSource.paginator = this.paginator;
-        this.clientesDataSource.sort = this.sort;
+        this.clientesDataSource.paginator = this.paginatorClientes;
+        this.clientesDataSource.sort = this.sortClientes;
 
         if (data?.page) {
-          this.totalElements = data.page.totalElements;
-          this.pageIndex = data.page.number;
+          this.totalElementsClientes = data.page.totalElements;
+          this.pageIndexClientes = data.page.number;
 
-          if (this.paginator) {
-            this.paginator.pageIndex = this.pageIndex;
-            this.paginator.length = this.totalElements;
+          if (this.paginatorClientes) {
+            this.paginatorClientes.pageIndex = this.pageIndexClientes;
+            this.paginatorClientes.length = this.totalElementsClientes;
           }
         }
       },
@@ -102,7 +106,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.getClientes(this.pageIndex, this.pageSize);
+        this.getClientes(this.pageIndexClientes, this.pageSizeClientes);
       }
     });
   }
@@ -114,7 +118,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.getClientes(this.pageIndex, this.pageSize);
+        this.getClientes(this.pageIndexClientes, this.pageSizeClientes);
       }
     });
   }
@@ -126,7 +130,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
           this.snackBar.open('Cliente excluído com sucesso!', 'Fechar', {
             duration: 3000
           });
-          this.getClientes(this.pageIndex, this.pageSize);
+          this.getClientes(this.pageIndexClientes, this.pageSizeClientes);
         },
         (error) => {
           this.mensagemErro = `Erro ao excluir o cliente com ID ${id}.`;
@@ -135,22 +139,48 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getAutores() {
+  getAutores(): void {
+    const getAutoresMethod = this.autoresService.getAutores(this.pageIndexAutores, this.pageSizeAutores);
+    getAutoresMethod.subscribe({
+      next: (data) => {
+        const autores = data.content ?? [];
+        console.log(data, 'aqui')
+        this.autoresDataSource.data = autores;
+        this.autoresDataSource.paginator = this.paginatorAutores;
+        this.autoresDataSource.sort = this.sortAutores;
+
+        if (data?.page) {
+          this.totalElementsAutores = data.totalElements;
+          this.pageIndexAutores = data.number;
+
+          if (this.paginatorAutores) {
+            this.paginatorAutores.length = this.totalElementsAutores;
+            this.paginatorAutores.pageIndex = this.pageIndexAutores;
+          }
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao buscar autores:', error);
+      }
+    });
+  }
+
+  getallAutores() {
     const getAutoresMethod = this.autoresService.getAllAutores();
     getAutoresMethod.subscribe({
       next: (data) => {
         const autores = data ?? [];
         this.autoresDataSource.data = autores;
-        this.autoresDataSource.paginator = this.paginator;
-        this.autoresDataSource.sort = this.sort;
+        this.autoresDataSource.paginator = this.paginatorAutores;
+        this.autoresDataSource.sort = this.sortAutores;
 
         if (data?.page) {
-          this.totalElements = data.page.totalElements;
-          this.pageIndex = data.page.number;
+          this.totalElementsAutores = data.page.totalElements;
+          this.pageIndexAutores = data.page.number;
 
-          if (this.paginator) {
-            this.paginator.length = this.totalElements;
-            this.paginator.pageIndex = this.pageIndex;
+          if (this.paginatorAutores) {
+            this.paginatorAutores.length = this.totalElementsAutores;
+            this.paginatorAutores.pageIndex = this.pageIndexAutores;
           }
         }
       },
@@ -161,8 +191,8 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   }
 
   onPageChangedAuthors(event: any): void {
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
+    this.pageIndexAutores = event.pageIndex;
+    this.pageSizeAutores = event.pageSize;
     this.getAutores();
   }
 }

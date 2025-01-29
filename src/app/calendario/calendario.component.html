@@ -1,0 +1,9 @@
+<mat-form-field appearance="outline">
+  <mat-label>Selecione um item</mat-label>
+  <mat-select [(value)]="selecionado">
+    <ngx-mat-select-search [formControl]="filtro" placeholderLabel="Buscar..."></ngx-mat-select-search>
+    <mat-option *ngFor="let item of itensFiltrados" [value]="item">
+      {{ item }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

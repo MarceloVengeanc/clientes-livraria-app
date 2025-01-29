@@ -57,7 +57,7 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumnsClientes;"></tr>
         </table>
 
-        <mat-paginator [length]="totalElements" [pageSize]="12" [pageIndex]="pageIndex" [pageSizeOptions]="[12, 24, 48]"
+        <mat-paginator [length]="totalElementsClientes" [pageSize]="12" [pageIndex]="pageIndexClientes" [pageSizeOptions]="[12, 24, 48]"
           [showFirstLastButtons]="true" (page)="onPageChange($event)">
         </mat-paginator>
 
@@ -103,7 +103,7 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumnsAutores;"></tr>
         </table>
 
-        <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20, 50]"
+        <mat-paginator [length]="totalElementsAutores" [pageSize]="pageSizeAutores" [pageSizeOptions]="[5, 10, 20, 50]"
           showFirstLastButtons (page)="onPageChange($event)">
         </mat-paginator>
 

@@ -47,6 +47,7 @@ import { LivrosComponent } from './livros/livros.component';
 import { CadastrosLivrosComponent } from './livros/cadastros-livros/cadastros-livros.component';
 import { DetalhadoComponent } from './dashboard/detalhado/detalhado.component';
 import { MensagensComponent } from './dashboard/mensagens/mensagens.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -101,7 +102,8 @@ import { MensagensComponent } from './dashboard/mensagens/mensagens.component';
     MatSnackBarModule,
     CommonModule,
     MatRadioModule,
-    MatTabsModule
+    MatTabsModule,
+    NgxMatSelectSearchModule
 
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],

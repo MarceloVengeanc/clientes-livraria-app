@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Autores } from '../clientes/cadastro-pessoas/autores';
@@ -23,6 +23,11 @@ export class AutoresService {
         'Authorization': 'Bearer ' + token
       }
     };
+  }
+
+  getAutores(page: number = 0, size: number = 20): Observable<any> {
+    const url = `${this.apiUrl}?page=${page}&size=${size}`;
+    return this.http.get<any>(url, this.getAuthHeaders());
   }
 
   getTotalAutores(): Observable<any> {
