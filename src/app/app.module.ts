@@ -50,6 +50,8 @@ import { MensagensComponent } from './dashboard/mensagens/mensagens.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,

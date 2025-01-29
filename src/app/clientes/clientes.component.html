@@ -17,6 +17,52 @@
     </mat-form-field>
 
     <mat-tab-group>
+      <mat-tab label="Todos">
+
+        <table mat-table [dataSource]="clientesDataSource" matSort class="mat-elevation-z8">
+
+          <ng-container class="container" matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+            <td mat-cell *matCellDef="let pessoa">{{ pessoa.id}}</td>
+          </ng-container>
+
+          <ng-container class="container" matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+            <td mat-cell *matCellDef="let pessoa">{{ pessoa.firstName + " " + pessoa.lastName }}</td>
+          </ng-container>
+
+          <ng-container class="container" matColumnDef="sexo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Sexo</th>
+            <td mat-cell *matCellDef="let pessoa">{{ pessoa.gender }}</td>
+          </ng-container>
+
+          <ng-container class="container" matColumnDef="endereco">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Endereço</th>
+            <td mat-cell *matCellDef="let pessoa">{{ pessoa.address }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="acoes">
+            <th mat-header-cell *matHeaderCellDef>Ações</th>
+            <td mat-cell *matCellDef="let pessoa">
+              <button mat-icon-button color="primary" (click)="editarClientes(pessoa)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="excluirCliente(pessoa.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsClientes"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsClientes;"></tr>
+        </table>
+
+        <mat-paginator [length]="totalElementsClientes" [pageSize]="12" [pageIndex]="pageIndexClientes" [pageSizeOptions]="[12, 24, 48]"
+          [showFirstLastButtons]="true" (page)="onPageChange($event)">
+        </mat-paginator>
+
+
+      </mat-tab>
       <mat-tab label="Clientes">
 
         <table mat-table [dataSource]="clientesDataSource" matSort class="mat-elevation-z8">

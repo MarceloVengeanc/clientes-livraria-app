@@ -21,16 +21,18 @@
             <div class="form_campos">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Selecione um autor</mat-label>
-                <mat-select [(value)]="autorSelecionado">
+                <mat-select [(value)]="autorSelecionado" formControlName="autor">
                   <mat-option>
-                    <ngx-mat-select-search [formControl]="filtro" placeholderLabel="Buscar..."></ngx-mat-select-search>
+                    <ngx-mat-select-search [formControl]="filtro" placeholderLabel="Buscar..." noEntriesFoundLabel="Autor não encontrado"></ngx-mat-select-search>
                   </mat-option>
                   <mat-option *ngFor="let item of autorFiltrado" [value]="item">
                     {{ item }}
                   </mat-option>
                 </mat-select>
+                <mat-error *ngIf="form.get('autor')?.hasError('required') && form.get('autor')?.touched">
+                  O autor é obrigatório.
+                </mat-error>
               </mat-form-field>
-
             </div>
 
             <div class="form_campos">

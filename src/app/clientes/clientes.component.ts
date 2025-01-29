@@ -144,7 +144,6 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     getAutoresMethod.subscribe({
       next: (data) => {
         const autores = data.content ?? [];
-        console.log(data, 'aqui')
         this.autoresDataSource.data = autores;
         this.autoresDataSource.paginator = this.paginatorAutores;
         this.autoresDataSource.sort = this.sortAutores;
