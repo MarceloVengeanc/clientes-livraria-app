@@ -1,22 +1,28 @@
-import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.component.html',
   styleUrls: ['./calendario.component.scss']
 })
-export class CalendarioComponent {
-  filtro = new FormControl('');
-  selecionado = '';
-  itens: string[] = ['Item 1', 'Item 2', 'Item 3', 'Outro'];
-  itensFiltrados: string[] = [...this.itens];
+export class CalendarioComponent implements OnInit {
+  calendarOptions: any;
 
-  constructor() {
-    this.filtro.valueChanges.subscribe(value => {
-      this.itensFiltrados = this.itens.filter(item =>
-        item.toLowerCase().includes((value ?? '').toLowerCase())
-      );
-    });
+  ngOnInit() {
+    this.calendarOptions = {
+      initialView: 'dayGridMonth',
+      dateClick: this.handleDateClick.bind(this),
+      plugins: [dayGridPlugin, interactionPlugin,],
+      events: [
+        { title: 'Evento de Teste', date: '2025-02-10' },
+        { title: 'Outro Evento', date: '2025-02-12' }
+      ]
+    };
+  }
+
+  handleDateClick() {
+    alert('Data clicada: ' + 'arg.dateStr');
   }
 }

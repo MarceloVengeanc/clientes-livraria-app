@@ -49,7 +49,10 @@ import { DetalhadoComponent } from './dashboard/detalhado/detalhado.component';
 import { MensagensComponent } from './dashboard/mensagens/mensagens.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
-
+// FullCalendar
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 
 
 @NgModule({
@@ -105,7 +108,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     CommonModule,
     MatRadioModule,
     MatTabsModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    FullCalendarModule
 
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
