@@ -48,6 +48,7 @@ import { CadastrosLivrosComponent } from './livros/cadastros-livros/cadastros-li
 import { DetalhadoComponent } from './dashboard/detalhado/detalhado.component';
 import { MensagensComponent } from './dashboard/mensagens/mensagens.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 // FullCalendar
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -109,7 +110,9 @@ import interactionPlugin from '@fullcalendar/interaction';
     MatRadioModule,
     MatTabsModule,
     NgxMatSelectSearchModule,
-    FullCalendarModule
+    FullCalendarModule,
+    MatCheckboxModule,
+
 
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],

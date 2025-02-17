@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CadastroPessoasComponent implements OnInit {
   cliente!: any;
   form: FormGroup;
+  isChecked = false;
 
   gender = [
     { id: 1, value: 'Masculino', viewValue: 'Masculino' },

@@ -82,13 +82,13 @@ button {
   margin-right: 5px;
 }
 
-.mat-cell {
-  overflow-wrap: break-word;
-  margin-left: 2px;
-  margin-right: 2px;
+
+.colunas-titulo {
+text-align: center;
+border: 1px solid #401a7e;
 }
 
-.container {
-  background-color: #401a7e; /* Cor de fundo */
+.colunas-dado {
+text-align: center;
 }
 
