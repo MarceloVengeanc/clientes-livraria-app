@@ -51,6 +51,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.getClientes(this.pageIndexClientes, this.pageSizeClientes);
     this.getAutores();
+    this.getAutoresTeste();
   }
 
   ngAfterViewInit(): void {
@@ -60,6 +61,13 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     this.autoresDataSource.sort = this.sortAutores;
   }
 
+  getAutoresTeste() {
+    this.clientesService.getAutores(true).subscribe((data) => {
+      console.log(data,'AQUI');
+      this.autoresDataSource.data = data;
+
+    });
+  }
 
   getClientes(page: number = 0, size: number = 12, filter: string = '') {
     const getClientesMethod = filter.trim()

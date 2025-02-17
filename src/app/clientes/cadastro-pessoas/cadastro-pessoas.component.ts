@@ -32,6 +32,7 @@ export class CadastroPessoasComponent implements OnInit {
       sobrenome: ['', Validators.required],
       endereco: ['', Validators.required],
       sexo: ['', Validators.required],
+      autor: [false],
     });
   }
 
@@ -41,11 +42,13 @@ export class CadastroPessoasComponent implements OnInit {
       const sexoSelecionado = this.gender.find(
         (g) => g.value === this.cliente.gender
       )?.value;
+
       this.form.patchValue({
         nome: this.cliente.firstName,
         sobrenome: this.cliente.lastName,
         sexo: sexoSelecionado,
         endereco: this.cliente.address,
+        autor: this.cliente.author ?? false,
       });
     }
   }
@@ -58,9 +61,9 @@ export class CadastroPessoasComponent implements OnInit {
         lastName: this.form.value.sobrenome,
         gender: this.form.value.sexo,
         address: this.form.value.endereco,
+        author: this.form.value.autor,
         enabled: this.cliente?.enabled ?? true,
       };
-
 
       if (this.cliente && this.cliente._links?.self?.href) {
         this.clientesService
@@ -86,7 +89,8 @@ export class CadastroPessoasComponent implements OnInit {
             this.dialogRef.close(response);
           },
           (error) => {
-            this.snackBar.open('Erro ao atualizar o cliente!', 'Fechar', {
+            console.log(error);
+            this.snackBar.open('Erro ao cadastrar o cliente!', 'Fechar', {
               duration: 3000
             });
           }
