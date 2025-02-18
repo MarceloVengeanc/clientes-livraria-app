@@ -62,10 +62,13 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   }
 
   getAutoresTeste() {
-    this.clientesService.getAutores(true).subscribe((data) => {
-      console.log(data,'AQUI');
-      this.autoresDataSource.data = data;
-
+    this.clientesService.getAutores().subscribe({
+      next: (data) => {
+        console.log(data, 'data');
+      },
+      error: (err) => {
+        console.error('Erro ao buscar autores:', err);
+      }
     });
   }
 

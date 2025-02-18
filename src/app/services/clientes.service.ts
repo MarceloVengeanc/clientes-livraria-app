@@ -26,9 +26,9 @@ export class ClientesService {
 
   getClientes(page: number = 0, size: number = 12, direction: string = 'asc'): Observable<any> {
     const params = new HttpParams()
-    .set('page', page.toString())
-    .set('size', size.toString())
-    .set('direction', direction);
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('direction', direction);
 
     return this.http.get<any>(this.apiUrl, { params, ...this.getAuthHeaders() });
   }
@@ -65,10 +65,10 @@ export class ClientesService {
     return this.http.get<Clientes>(this.apiUrl + '/all', this.getAuthHeaders());
   }
 
-  getAutores(autor: boolean): Observable<any> {
-    const url = `${this.apiUrl}/author?autor=${autor}`;
-    return this.http.get<Clientes>(url, this.getAuthHeaders());
+  getAutores(): Observable<Clientes[]> {
+    return this.http.get<Clientes[]>(this.apiUrl + '/author?autor=true', this.getAuthHeaders());
   }
+
 
 }
 
