@@ -27,9 +27,9 @@ export class ClientesService {
 
   getClientes(page: number = 0, size: number = 12, direction: string = 'asc'): Observable<any> {
     const params = new HttpParams()
-    .set('page', page.toString())
-    .set('size', size.toString())
-    .set('direction', direction);
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('direction', direction);
 
     return this.http.get<any>(this.apiUrl, { params, ...this.getAuthHeaders() });
   }
@@ -45,16 +45,12 @@ export class ClientesService {
     return this.http.get<any>(url, { params, ...this.getAuthHeaders() });
   }
 
-  getTotalClientes(): Observable<any> {
-    return this.http.get<Clientes>(this.apiUrl, this.getAuthHeaders());
+  cadastrarCliente(cliente: Clientes): Observable<any> {
+    return this.http.post<Clientes>(this.apiUrl, cliente, this.getAuthHeaders());
   }
 
   atualizaCliente(url: string, cliente: Clientes): Observable<Clientes> {
     return this.http.put<Clientes>(url, cliente, this.getAuthHeaders());
-  }
-
-  cadastrarCliente(cliente: Clientes): Observable<any> {
-    return this.http.post<Clientes>(this.apiUrl, cliente, this.getAuthHeaders());
   }
 
   excluirCliente(id: number): Observable<any> {
@@ -62,8 +58,18 @@ export class ClientesService {
     return this.http.delete<any>(url, this.getAuthHeaders());
   }
 
-  getAllClientes(): Observable<any> {
-    return this.http.get<Clientes>(this.apiUrl + '/all', this.getAuthHeaders());
+  getTotalPessoas(): Observable<any> {
+    const url = `${this.apiUrl}/all`;
+    return this.http.get<Clientes>(url, this.getAuthHeaders());
+  }
+
+  getTotalClientes(): Observable<any> {
+    const url = `${this.apiUrl}/cliente`;
+    return this.http.get<Clientes>(url, this.getAuthHeaders());
+  }
+
+  getTotalAutores(): Observable<any> {
+    return this.http.get<Clientes>(this.apiUrl + '/autor', this.getAuthHeaders());
   }
 
 }

@@ -43,7 +43,7 @@
             <div>
               <mat-form-field appearance="outline" class="campos_filtro" style="width: 30%">
                 <mat-label>Sexo</mat-label>
-                <mat-select formControlName="sexo">
+                <mat-select formControlName="sexo" [compareWith]="compararObjeto">
                   <mat-option *ngFor="let option of gender" [value]="option.value">
                     {{ option.viewValue }}
                   </mat-option>
@@ -52,7 +52,7 @@
                   O sexo é obrigatório.
                 </mat-error>
               </mat-form-field>
-              <mat-checkbox [(ngModel)]="isChecked" color="primary" class="custom-checkbox">Autor</mat-checkbox>
+              <mat-checkbox formControlName="author" color="primary" class="custom-checkbox">Autor</mat-checkbox>
             </div>
           </div>
 

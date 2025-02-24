@@ -8,9 +8,9 @@ import { MainComponent } from './main/main.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidenavComponent } from './layout/sidenav/sidenav.component';
 
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -38,22 +38,23 @@ import { ConfiguracoesComponent } from './configuracoes/configuracoes.component'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MAT_DATE_LOCALE, MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { LoginComponent } from './login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FilterPipe } from './utils/filter.pipe';
-import { ClientesComponent } from './clientes/clientes.component';
+import { totalPessoasComponent } from './clientes/totalPessoas.component';
 import { MatSortModule } from '@angular/material/sort';
 import { LivrosComponent } from './livros/livros.component';
 import { CadastrosLivrosComponent } from './livros/cadastros-livros/cadastros-livros.component';
 import { DetalhadoComponent } from './dashboard/detalhado/detalhado.component';
 import { MensagensComponent } from './dashboard/mensagens/mensagens.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 // FullCalendar
 import { FullCalendarModule } from '@fullcalendar/angular';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from '@fullcalendar/interaction';
+import { AutoresComponent } from './clientes/autores/autores.component';
+import { ClientesComponent } from './clientes/clientes/clientes.component';
 
 
 @NgModule({
@@ -62,7 +63,7 @@ import interactionPlugin from '@fullcalendar/interaction';
     CadastroPessoasComponent,
     CadastrosLivrosComponent,
     CalendarioComponent,
-    ClientesComponent,
+    totalPessoasComponent,
     ConfiguracoesComponent,
     FilterPipe,
     HeaderComponent,
@@ -73,7 +74,9 @@ import interactionPlugin from '@fullcalendar/interaction';
     RouterLinkActiveExactDirective,
     SidenavComponent,
     DetalhadoComponent,
-    MensagensComponent
+    MensagensComponent,
+    AutoresComponent,
+    ClientesComponent
 
   ],
   imports: [
@@ -115,7 +118,10 @@ import interactionPlugin from '@fullcalendar/interaction';
 
 
   ],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

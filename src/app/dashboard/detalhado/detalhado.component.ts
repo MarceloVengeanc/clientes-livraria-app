@@ -88,10 +88,9 @@ export class DetalhadoComponent implements AfterViewInit, OnInit {
 
   getAllClientes(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.clientesService.getAllClientes().subscribe({
+      this.clientesService.getTotalClientes().subscribe({
         next: (data) => {
           this.clientesAtivos = data;
-          this.totalEnabled = this.clientesAtivos.filter((cliente: any) => cliente.enabled).length;
           resolve();
         },
         error: (error) => {

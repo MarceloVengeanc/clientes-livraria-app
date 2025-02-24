@@ -32,6 +32,7 @@ export class CadastroPessoasComponent implements OnInit {
       sobrenome: ['', Validators.required],
       endereco: ['', Validators.required],
       sexo: ['', Validators.required],
+      author: [false]
     });
   }
 
@@ -46,6 +47,7 @@ export class CadastroPessoasComponent implements OnInit {
         sobrenome: this.cliente.lastName,
         sexo: sexoSelecionado,
         endereco: this.cliente.address,
+        author: this.cliente.author ?? false
       });
     }
   }
@@ -59,6 +61,7 @@ export class CadastroPessoasComponent implements OnInit {
         gender: this.form.value.sexo,
         address: this.form.value.endereco,
         enabled: this.cliente?.enabled ?? true,
+        author: this.form.get('author')?.value ?? false
       };
 
 
@@ -66,13 +69,13 @@ export class CadastroPessoasComponent implements OnInit {
         this.clientesService
           .atualizaCliente(this.cliente._links.self.href, clienteData).subscribe(
             (response) => {
-              this.snackBar.open('Cliente atualizado com sucesso!', 'Fechar', {
+              this.snackBar.open('Cadastro atualizado com sucesso!', 'Fechar', {
                 duration: 3000
               });
               this.dialogRef.close(response);
             },
             (error) => {
-              this.snackBar.open('Erro ao atualizar o cliente!', 'Fechar', {
+              this.snackBar.open('Erro ao atualizar o cadastro!', 'Fechar', {
                 duration: 3000
               });
             }
@@ -80,13 +83,13 @@ export class CadastroPessoasComponent implements OnInit {
       } else {
         this.clientesService.cadastrarCliente(clienteData).subscribe(
           (response) => {
-            this.snackBar.open('Cliente cadastrado com sucesso!', 'Fechar', {
+            this.snackBar.open('Cadastro realizado com sucesso!', 'Fechar', {
               duration: 3000
             });
             this.dialogRef.close(response);
           },
           (error) => {
-            this.snackBar.open('Erro ao atualizar o cliente!', 'Fechar', {
+            this.snackBar.open('Erro ao cadastrar!', 'Fechar', {
               duration: 3000
             });
           }
@@ -98,4 +101,9 @@ export class CadastroPessoasComponent implements OnInit {
   onCancel() {
     this.dialogRef.close();
   }
+
+  compararObjeto(o1: any, o2: any) {
+    return o1 === o2;
+  }
+
 }

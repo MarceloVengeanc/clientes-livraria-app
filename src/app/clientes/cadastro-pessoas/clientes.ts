@@ -5,4 +5,5 @@ export class Clientes {
   address!: string;
   gender!: string;
   enabled!: boolean;
+  author!: boolean;
 }

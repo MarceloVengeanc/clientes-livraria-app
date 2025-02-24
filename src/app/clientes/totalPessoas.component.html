@@ -1,0 +1,76 @@
+<div *ngIf="carregando" class="spinner">
+  <mat-spinner></mat-spinner>
+</div>
+<mat-card>
+  <mat-card-title style="margin-left: 16px;">Pessoas</mat-card-title>
+  <div>
+    <button mat-raised-button color="primary" type="button" (click)="cadastrarClientes()">
+      Novo
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <mat-card-content>
+
+    <mat-form-field appearance="outline" style="width: 100%;">
+      <mat-label>Filtrar por nome...</mat-label>
+      <input matInput (keyup)="aplicarFiltro($event)">
+    </mat-form-field>
+
+    <mat-tab-group>
+      <mat-tab label="Todos">
+
+        <table mat-table [dataSource]="pessoasDataSource" matSort class="mat-elevation-z8">
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="colunas-titulo">ID</th>
+            <td mat-cell *matCellDef="let pessoa" class="colunas-dado">{{ pessoa.id }}</td>
+          </ng-container>
+
+          <ng-container class="container" matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="colunas-titulo">Nome</th>
+            <td mat-cell *matCellDef="let pessoa" class="colunas-dado">{{ pessoa.firstName + " " + pessoa.lastName }}
+            </td>
+          </ng-container>
+
+          <ng-container class="container" matColumnDef="sexo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="colunas-titulo">Sexo</th>
+            <td mat-cell *matCellDef="let pessoa" class="colunas-dado">{{ pessoa.gender }}</td>
+          </ng-container>
+
+          <ng-container class="container" matColumnDef="endereco">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="colunas-titulo">Endereço</th>
+            <td mat-cell *matCellDef="let pessoa" class="colunas-dado">{{ pessoa.address }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="acoes">
+            <th mat-header-cell *matHeaderCellDef class="colunas-titulo">Ações</th>
+            <td mat-cell *matCellDef="let pessoa" class="colunas-dado">
+              <button mat-icon-button color="primary" (click)="editarClientes(pessoa)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="excluirCliente(pessoa.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsClientes"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsClientes;"></tr>
+        </table>
+
+        <mat-paginator [length]="totalElementsClientes" [pageSize]="12" [pageIndex]="pageIndexClientes"
+          [pageSizeOptions]="[12, 24, 48]" [showFirstLastButtons]="true" (page)="onPageChange($event)">
+        </mat-paginator>
+      </mat-tab>
+
+      <mat-tab label="Clientes">
+        <app-clientes></app-clientes>
+      </mat-tab>
+
+      <mat-tab label="Autores">
+        <app-autores></app-autores>
+      </mat-tab>
+
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
