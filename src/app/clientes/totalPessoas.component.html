@@ -12,7 +12,7 @@
   <mat-card-content>
 
     <mat-form-field appearance="outline" style="width: 100%;">
-      <mat-label>Filtrar por nome...</mat-label>
+      <mat-label>Filtrar...</mat-label>
       <input matInput (keyup)="aplicarFiltro($event)">
     </mat-form-field>
 
@@ -28,7 +28,7 @@
 
           <ng-container class="container" matColumnDef="nome">
             <th mat-header-cell *matHeaderCellDef mat-sort-header class="colunas-titulo">Nome</th>
-            <td mat-cell *matCellDef="let pessoa" class="colunas-dado">{{ pessoa.firstName + " " + pessoa.lastName }}
+            <td mat-cell *matCellDef="let pessoa" class="colunas-dado">{{ pessoa.name }}
             </td>
           </ng-container>
 

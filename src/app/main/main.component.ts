@@ -13,7 +13,9 @@ export class MainComponent {
   isLoggedIn = false;
   constructor(
     private sidebarService: SidebarService,
-    private authService: AuthService) { }
+    private authService: AuthService) {
+
+    }
 
   ngOnInit() {
     this.sidebarService.sidebarVisibility$.subscribe((isVisible) => {

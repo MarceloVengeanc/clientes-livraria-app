@@ -1,7 +1,6 @@
 export class Clientes {
   id!: number;
-  firstName!: string;
-  lastName!: string;
+  name!: string;
   address!: string;
   gender!: string;
   enabled!: boolean;

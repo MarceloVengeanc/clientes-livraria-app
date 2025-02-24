@@ -1,15 +1,16 @@
 <div class="login-container">
   <mat-card>
-    <mat-card-title>Login</mat-card-title>
+    <mat-card-title style="text-align: center;">Login</mat-card-title>
+    <br>
     <mat-card-content>
       <form (ngSubmit)="login()">
         <mat-form-field class="full-width">
-          <mat-label>Username</mat-label>
+          <mat-label>Usuário</mat-label>
           <input matInput [(ngModel)]="username" name="username" required />
         </mat-form-field>
 
         <mat-form-field class="full-width">
-          <mat-label>Password</mat-label>
+          <mat-label>Senha</mat-label>
           <input matInput [(ngModel)]="password" name="password" type="password" required />
         </mat-form-field>
 
@@ -17,5 +18,7 @@
       </form>
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
     </mat-card-content>
+    <br>
+    <a style="text-align: end;" href="" class="forgot-password">Esqueci a senha</a>
   </mat-card>
 </div>

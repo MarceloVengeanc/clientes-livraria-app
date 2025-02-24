@@ -29,7 +29,6 @@ export class CadastroPessoasComponent implements OnInit {
   ) {
     this.form = this.fb.group({
       nome: ['', Validators.required],
-      sobrenome: ['', Validators.required],
       endereco: ['', Validators.required],
       sexo: ['', Validators.required],
       author: [false]
@@ -44,8 +43,7 @@ export class CadastroPessoasComponent implements OnInit {
       )?.value;
 
       this.form.patchValue({
-        nome: this.cliente.firstName,
-        sobrenome: this.cliente.lastName,
+        nome: this.cliente.name,
         sexo: sexoSelecionado,
         endereco: this.cliente.address,
         author: this.cliente.author ?? false
@@ -57,8 +55,7 @@ export class CadastroPessoasComponent implements OnInit {
     if (this.form.valid) {
       const clienteData: Clientes = {
         id: this.cliente?.id,
-        firstName: this.form.value.nome,
-        lastName: this.form.value.sobrenome,
+        name: this.form.value.nome,
         gender: this.form.value.sexo,
         address: this.form.value.endereco,
         enabled: this.cliente?.enabled ?? true,

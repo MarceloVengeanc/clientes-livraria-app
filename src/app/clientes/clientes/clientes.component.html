@@ -7,7 +7,7 @@
 
   <ng-container class="container" matColumnDef="nome">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
-    <td mat-cell *matCellDef="let pessoa">{{ pessoa.firstName + " " + pessoa.lastName }}</td>
+    <td mat-cell *matCellDef="let pessoa">{{ pessoa.name }}</td>
   </ng-container>
 
   <ng-container class="container" matColumnDef="sexo">

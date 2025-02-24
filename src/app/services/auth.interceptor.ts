@@ -1,37 +1,27 @@
-import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse
-} from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  constructor(private authService: AuthService, private router: Router) { }
 
-  constructor(private AuthService: AuthService, private router: Router) { }
-
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-    const token = this.AuthService.getToken();
-    let authReq = request;
-
-    if (token) {
-      authReq = request.clone({
-        setHeaders: { Authorization: `Bearer ${token}` }
-      });
-    }
-
-    return next.handle(authReq).pipe(
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return next.handle(req).pipe(
       catchError((error) => {
-        if (error instanceof HttpErrorResponse && error.status === 401) {
-          this.AuthService.logout();
-          this.router.navigate(['/login']);
+        if (error instanceof HttpErrorResponse) {
+          if (error.status === 401 || error.status === 403) {
+            console.warn('Token expirado ou inválido. Redirecionando para login...');
+            this.authService.logout();
+            this.router.navigate(['/login']);
+          } else if (error.status === 500) {
+            console.error('Erro interno no servidor:', error.message);
+          }
         }
+
         return throwError(() => error);
       })
     );
