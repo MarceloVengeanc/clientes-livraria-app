@@ -15,7 +15,6 @@ export class ClientesService {
   private getAuthHeaders(): { headers: { Authorization: string } } {
     const token = localStorage.getItem('authToken');
     if (!token) {
-      console.error('Token não encontrado');
       throw new Error('Token não encontrado');
     }
     return {
@@ -71,6 +70,11 @@ export class ClientesService {
   getTotalAutores(): Observable<any> {
     return this.http.get<Clientes>(this.apiUrl + '/autor', this.getAuthHeaders());
   }
+
+  getAutores(): Observable<Clientes[]> {
+    return this.http.get<Clientes[]>(this.apiUrl + '/author?autor=true', this.getAuthHeaders());
+  }
+
 
 }
 
