@@ -61,7 +61,6 @@ export class CadastroPessoasComponent implements OnInit {
         lastName: this.form.value.sobrenome,
         gender: this.form.value.sexo,
         address: this.form.value.endereco,
-        author: this.form.value.autor,
         enabled: this.cliente?.enabled ?? true,
         author: this.form.get('author')?.value ?? false
       };
