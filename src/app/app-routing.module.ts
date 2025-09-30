@@ -13,7 +13,7 @@ import { DetalhadoComponent } from './dashboard/detalhado/detalhado.component';
 import { MensagensComponent } from './dashboard/mensagens/mensagens.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
   { path: 'cadastroclientes', component: CadastroPessoasComponent, canActivate: [authGuard] },

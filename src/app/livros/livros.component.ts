@@ -59,7 +59,7 @@ export class LivrosComponent implements OnInit, AfterViewInit {
         }
       },
       error: (error) => {
-        console.error('Erro ao buscar clientes:', error);
+        console.error('Erro ao buscar livros:', error);
       }
     });
   }

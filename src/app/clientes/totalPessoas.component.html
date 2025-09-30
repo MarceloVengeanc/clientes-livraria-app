@@ -22,28 +22,28 @@
         <table mat-table [dataSource]="pessoasDataSource" matSort class="mat-elevation-z8">
 
           <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="colunas-titulo">ID</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
             <td mat-cell *matCellDef="let pessoa" class="colunas-dado">{{ pessoa.id }}</td>
           </ng-container>
 
           <ng-container class="container" matColumnDef="nome">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="colunas-titulo">Nome</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
             <td mat-cell *matCellDef="let pessoa" class="colunas-dado">{{ pessoa.name }}
             </td>
           </ng-container>
 
           <ng-container class="container" matColumnDef="sexo">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="colunas-titulo">Sexo</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Sexo</th>
             <td mat-cell *matCellDef="let pessoa" class="colunas-dado">{{ pessoa.gender }}</td>
           </ng-container>
 
           <ng-container class="container" matColumnDef="endereco">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="colunas-titulo">Endereço</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Endereço</th>
             <td mat-cell *matCellDef="let pessoa" class="colunas-dado">{{ pessoa.address }}</td>
           </ng-container>
 
           <ng-container matColumnDef="acoes">
-            <th mat-header-cell *matHeaderCellDef class="colunas-titulo">Ações</th>
+            <th mat-header-cell *matHeaderCellDef>Ações</th>
             <td mat-cell *matCellDef="let pessoa" class="colunas-dado">
               <button mat-icon-button color="primary" (click)="editarClientes(pessoa)">
                 <mat-icon>edit</mat-icon>
